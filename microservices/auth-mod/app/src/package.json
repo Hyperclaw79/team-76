@@ -1,6 +1,7 @@
 {
-  "name": "quickstart-docker-express-example",
+  "name": "The modified auth page.",
   "version": "1.0.0",
+  "private": "True",
   "description": "Demo to show git push build and deploy",
   "scripts": {
     "start": "node server.js"
