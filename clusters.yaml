@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: fortune22-hasura
+  data: null
+  kubeContext: fortune22
+  name: fortune22
