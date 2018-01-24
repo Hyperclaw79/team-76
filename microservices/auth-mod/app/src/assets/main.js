@@ -1864,7 +1864,7 @@
         return m
     });
     var r = "https://storage.googleapis.com/auth-ui-kit/v4"
-      , o = "/images/username.svg"
+      , o = "/username.svg"
       , a = r + "/images/email.svg"
       , i = r + "/images/mobilenumber.svg"
       , l = r + "/images/mobile-OTP.svg"
