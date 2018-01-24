@@ -8,7 +8,7 @@ ADD app/src/package.json /src/package.json
 #install node modules
 RUN npm install
 
-#Add the source code
+ --save#Add the source code
 ADD app/src /src
 
 CMD ["node", "server.js"]
