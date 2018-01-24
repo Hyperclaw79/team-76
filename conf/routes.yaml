@@ -188,7 +188,12 @@ api:
 
 auth-mod:
   /:
-    corsPolicy: allow_all
+    corsPolicy: null
+    enableAuth: true
+    enableCORS: true
+    enableWebsockets: true
+    locationDirectives: ""
+    restrictToRoles: []
     upstreamService:
       name: auth-mod
       namespace: '{{ cluster.metadata.namespaces.user }}'
