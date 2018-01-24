@@ -185,3 +185,14 @@ api:
       namespace: '{{ cluster.metadata.namespaces.user }}'
     upstreamServicePath: /
     upstreamServicePort: 80
+
+auth-mod:
+  /:
+    corsPolicy: allow_all
+    upstreamService:
+      name: auth-mod
+      namespace: '{{ cluster.metadata.namespaces.user }}'
+    upstreamServicePath: /
+    upstreamServicePort: 80
+
+
