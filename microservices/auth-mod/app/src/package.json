@@ -1,8 +1,8 @@
 {
-  "name": "The modified auth page.",
+  "name": "Auth-mod",
   "version": "1.0.0",
   "private": "True",
-  "description": "Demo to show git push build and deploy",
+  "description": "The modified auth page.",
   "scripts": {
     "start": "node server.js"
   },
