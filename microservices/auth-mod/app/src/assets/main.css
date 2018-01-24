@@ -109,7 +109,7 @@
 }
 
 .DarkLandingPageInnerWrapper {
-    background-color: #26324a
+    background-color: #041941
 }
 
 .DarkLandingPageInnerWrapper,.LightLandingPageInnerWrapper {
@@ -172,7 +172,7 @@
 }
 
 .descriptionText {
-    color: #706c8d;
+    color: #8074d7;
     font-family: Open Sans;
     font-size: 16px;
     line-height: 20px
@@ -209,12 +209,12 @@
     box-shadow: none;
     height: 44px;
     border-radius: 5px;
-    border: 1px solid #42464d!important;
+    border: 3px ridge #346bcb!important;
     padding: 0;
     border: 0;
     padding-left: 10px;
     font-size: 14px;
-    background-color: #42464d!important;
+    background-color: #6fa0f6!important;
     color: #fff!important
 }
 
@@ -222,7 +222,7 @@
     text-align: left;
     padding-bottom: 10px;
     display: block;
-    color: #545783;
+    color: #9fa3d3;
     font-size: 14px;
     font-weight: 600
 }
@@ -260,7 +260,7 @@
 }
 
 .linkDescription a {
-    color: #1b00d4;
+    color: #3836e6;
     text-decoration: none
 }
 
@@ -280,17 +280,22 @@
 }
 
 .signInbtn a button {
-    background-color: #0007d4;
+    background-color: #3338c9;
     width: 100%;
     height: 46px;
     text-align: center;
     border-radius: 5px;
-    border: 1px solid #0c00d4;
+    border: 1px ridge #00ffd4;
     text-transform: uppercase;
     font-size: 14px;
     cursor: pointer;
     margin-top: 10px;
-    color: #fff
+    color: #fff;
+	box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.75);
+}
+
+.signInbtn a button:active {
+	box-shadow: none;
 }
 
 .signInbtn a button:hover {
@@ -390,6 +395,16 @@
 
 .socialLoginIcon a i:hover {
     color: #7371a8
+}
+
+.img-responsive[alt^="Facebook"] {
+	box-shadow: 3px 3px 3px 3px rgba(0,0,0,.75);
+    border-radius: 25px;
+}
+
+.img-responsive[alt^="Facebook"]:active {
+	box-shadow: none;
+    border-radius: none;
 }
 
 .errorText {
