@@ -15,10 +15,10 @@
 # defaultRoles: ["admin"]
 defaultProviders:
   username:
-    enabled: "true"
+    enabled: "false"
     defaultRoles: []
   email:
-    enabled: "false"
+    enabled: "true"
     defaultRoles: []
   mobile:
     enabled: "false"
@@ -30,7 +30,7 @@ defaultProviders:
     enabled: "false"
     defaultRoles: []
   facebook:
-    enabled: "false"
+    enabled: "true"
     defaultRoles: []
   github:
     enabled: "false"
@@ -83,38 +83,7 @@ email:
   # Forgot password reset token expiry time in days
   resetTokenExpires: "7"
 
-# Configuration for the mobile provider
-mobile:
-  # Template for the SMS that is sent. This is a Jinja template. Leave the
-  # "{{otp}}" as it is. It will be used by the auth service to inject the
-  # actual token.
-  smsTemplate: |
-    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
-  # OTP expiry time in minutes
-  otpExpiryTime: "15"
-
-# Configuration for the mobile-password provider
-mobilePassword:
-  # Template for the SMS that is sent. This is a Jinja template. Leave the
-  # "{{otp}}" as it is. It will be used by the auth service to inject the
-  # actual token.
-  smsTemplate: |
-    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
-  # OTP expiry time in minutes
-  otpExpiryTime: "15"
-
-# Configuration for password
-password:
-  # minimum length of the password allowed.
-  minLength: "8"
-
-# Below fields are all optional
-#
-# Configuration for google provider
-#google:
-#  # list of the all the client ids generated for your Google app
-#  clientIds: ["xxxxxx", "yyyyyy"]
-#
+# Hyper: "We need to create a facebook app too."
 # Configuration for facebook provider
 #facebook:
 #  # your facebook app client id
@@ -124,37 +93,6 @@ password:
 #    secretKeyRef:
 #      key: auth.facebook.client_secret
 #      name: hasura-secrets
-#
-# Configuration for github provider
-#github:
-#  # your github app client id
-#  clientId: xxxxxxxxx
-#  # your github app client secret
-#  clientSecret:
-#    secretKeyRef:
-#      key: auth.github.client_secret
-#      name: hasura-secrets
-#
-# Configuration for linkedin provider
-#linkedin:
-#  # your linkedin app client id
-#  clientId: xxxxxxxxx
-#  # your linkedin app client secret
-#  clientSecret:
-#    secretKeyRef:
-#      key: auth.linkedin.client_secret
-#      name: hasura-secrets
-
-# Configuration for adding a custom provider
-#customProviders:
-# myCustomProvider:
-#   enabled: "true",
-#   hooks:
-#     signup: "https://mycustomprovider.test42.hasura-app.io/signup"
-#     login: "https://mycustomprovider.test42.hasura-app.io/login"
-#     merge: "https://mycustomprovider.test42.hasura-app.io/merge"
-#  defaultRoles: ["admin"]
-
 
 # The below fields are used by the platform when initializing. Please do not
 # edit these configuration
