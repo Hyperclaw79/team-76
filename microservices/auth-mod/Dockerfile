@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:9.4.0
 
 WORKDIR /src
 
@@ -6,9 +6,9 @@ WORKDIR /src
 ADD app/src/package.json /src/package.json
 
 #install node modules
-RUN npm install
+RUN npm install --save
 
- --save#Add the source code
+#Add the source code
 ADD app/src /src
 
 CMD ["node", "server.js"]
