@@ -308,12 +308,15 @@
 
 .darkCommonBtn a button {
     color: #fff;
-    background-color: #394252;
-    border: 1.5px solid #354156
+    background-color: #1015af;
+    border: 1px ridge #00ffd4;
+    box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.75);
 }
 
 .darkCommonBtn a button:hover {
-    background-color: #243243
+    background-color: #00ffd4;
+    box-shadow: none;
+    color: #1015af;
 }
 
 .lightCommonBtn a button {
