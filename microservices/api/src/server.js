@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 
 //app.use('/', hasuraExamplesRouter);
 
-app.get('/', function (req, res) {
+app.get('/ui', function (req, res) {
   res.sendFile(path.join(__dirname, 'assets','ui.html'));
 });
 
