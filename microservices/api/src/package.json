@@ -9,6 +9,10 @@
   "author": "Hyper",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.18.2",
+    "express": "^4.14.0",
+    "morgan": "^1.9.0",
+    "request": "^2.83.0",
+    "request-debug": "^0.2.0"
   }
 }
