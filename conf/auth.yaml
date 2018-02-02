@@ -83,6 +83,32 @@ email:
   # Forgot password reset token expiry time in days
   resetTokenExpires: "7"
 
+# Configuration for the mobile provider
+mobile:
+  # Template for the SMS that is sent. This is a Jinja template. Leave the
+  # "{{otp}}" as it is. It will be used by the auth service to inject the
+  # actual token.
+  smsTemplate: |
+    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
+  # OTP expiry time in minutes
+  otpExpiryTime: "15"
+
+# Configuration for the mobile-password provider
+mobilePassword:
+  # Template for the SMS that is sent. This is a Jinja template. Leave the
+  # "{{otp}}" as it is. It will be used by the auth service to inject the
+  # actual token.
+  smsTemplate: |
+    Verify your acccount with MyAwesomeApp! Your OTP is {{ "{{otp}}" }}.
+  # OTP expiry time in minutes
+  otpExpiryTime: "15"
+
+# Configuration for password
+password:
+  # minimum length of the password allowed.
+  minLength: "8"
+
+  
 # Hyper: "We need to create a facebook app too."
 # Configuration for facebook provider
 #facebook:

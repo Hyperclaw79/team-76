@@ -26,9 +26,3 @@ remotes:
       api:
         dockerfile: microservices/api/Dockerfile
         path: microservices/api
-
-    '{{ cluster.metadata.namespaces.user }}.auth-mod':
-      auth-mod:
-        dockerfile: microservices/auth-mod/Dockerfile
-        path: microservices/auth-mod
-

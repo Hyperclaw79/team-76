@@ -5,8 +5,9 @@ var router = express.Router();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 require('request-debug')(request);
+app.use(express.static(path.join(__dirname, 'assets')));
 
-var hasuraExamplesRouter = require('./hasuraExamples');
+//var hasuraExamplesRouter = require('./hasuraExamples');
 
 var server = require('http').Server(app);
 
@@ -17,7 +18,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use('/', hasuraExamplesRouter);
+//app.use('/', hasuraExamplesRouter);
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'assets','ui.html'));
+});
 
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');
