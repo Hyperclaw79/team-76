@@ -4,7 +4,6 @@ var request = require('request');
 var router = express.Router();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-require('request-debug')(request);
 app.use(express.static(path.join(__dirname, 'assets')));
 
 //var hasuraExamplesRouter = require('./hasuraExamples');
