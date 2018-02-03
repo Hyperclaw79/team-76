@@ -2,7 +2,8 @@ import React from 'react';
 import DropzoneComponent from 'react-dropzone-component';
 import './formy.css'
 import Paper from 'material-ui/Paper';
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class Droppy extends React.Component {
     constructor(props) {
@@ -62,6 +63,33 @@ class Droppy extends React.Component {
     }
 }
 
+class DropDown extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {eventList:props.eventList,choice: 1};
+    }
+  
+    handleChange = (event, index, value) => this.setState({choice:value});
+  
+    render() {
+      return (
+        <DropDownMenu 
+            value={this.state.choice} 
+            onChange={this.handleChange} 
+            style={{width:"50%",height:"100%"}} 
+            autoWidth={false}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'middle'}}>
+            {
+                this.state.eventList.map((item,index)=>
+                    <MenuItem value={index+1} key={index} primaryText={item} />
+                )
+            }
+        </DropDownMenu>
+      );
+    }
+  }
+
 export default class NominationForm extends React.Component {
     constructor(props) {
         super(props);
@@ -70,7 +98,8 @@ export default class NominationForm extends React.Component {
             Filename: '',
             Description: '',
             form_disp: "block",
-            finishedDisp: "none"
+            finishedDisp: "none",
+            eventList: ["Selfie Contest","Audiophilia","Meme Wars","Art Battle","Pen up!"]
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -83,14 +112,13 @@ export default class NominationForm extends React.Component {
       }
     
       handleSubmit(event) {
-        let ev = event  
+        event.preventDefault();
         let submission = this.refs.droppy.state.uri;
-        let Event = this.state.Event
-        let Filename = this.state.Filename
-        let Description = this.state.Description
+        let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1];
+        let Filename = this.state.Filename;
+        let Description = this.state.Description;
         alert("Event: "+Event+"\nFilename: "+Filename+"\nDescription: "+Description+"\nSubmission: "+submission);
         this.setState({form_disp:"none",finishedDisp:"block"});
-        ev.preventDefault();
       }
     
       render() {
@@ -98,7 +126,7 @@ export default class NominationForm extends React.Component {
            <Paper zDepth={3} className="FormWrapper">    
             <form className="Formy" id="Formy" onSubmit={this.handleSubmit} style={{display:this.state.form_disp}}>
                 <h1>Nominate yourself.</h1>
-                <input placeholder="Event" type="text" value={this.state.Event} required onChange={this.handleChange} />
+                <DropDown ref="choicy" eventList={this.state.eventList} />
                 <input placeholder="Filename" type="text" value={this.state.Filename} required onChange={this.handleChange} />
                 <input placeholder="Description" type="text" value={this.state.Description} required onChange={this.handleChange} />
                 <Droppy ref="droppy" />
@@ -111,7 +139,7 @@ export default class NominationForm extends React.Component {
                         width:"550px", marginLeft: "-75px"
                     }}>
                 <span><b>Successfully Nominated yourself!</b></span>
-                <img style={{width:"500px",height:"500px"}} src="success.gif" />
+                <img style={{width:"500px",height:"500px"}} src="success.gif" alt="success"/>
             </Paper>     
            </Paper>
         );
