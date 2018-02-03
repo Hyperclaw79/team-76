@@ -69,7 +69,8 @@ export default class NominationForm extends React.Component {
             Event: '',
             Filename: '',
             Description: '',
-            form_disp:"block"
+            form_disp: "block",
+            finishedDisp: "none"
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -88,7 +89,7 @@ export default class NominationForm extends React.Component {
         let Filename = this.state.Filename
         let Description = this.state.Description
         alert("Event: "+Event+"\nFilename: "+Filename+"\nDescription: "+Description+"\nSubmission: "+submission);
-        this.setState({form_disp:"none"});
+        this.setState({form_disp:"none",finishedDisp:"block"});
         ev.preventDefault();
       }
     
@@ -102,7 +103,10 @@ export default class NominationForm extends React.Component {
                 <input placeholder="Description" type="text" value={this.state.Description} required onChange={this.handleChange} />
                 <Droppy ref="droppy" />
                 <button>Send</button>
-            </form> 
+            </form>
+            <Paper zDepth={1} className="DoneNominating" style={{display:this.state.finishedDisp}}>
+                <span><b>Successfully Nominated yourself!</b></span>
+            </Paper>     
            </Paper>
         );
       }
