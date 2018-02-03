@@ -104,7 +104,12 @@ export default class NominationForm extends React.Component {
                 <Droppy ref="droppy" />
                 <button>Send</button>
             </form>
-            <Paper zDepth={1} className="DoneNominating" style={{display:this.state.finishedDisp,marginTop:"25px",padding:"25px"}}>
+            <Paper zDepth={1} className="DoneNominating" 
+                style={{
+                        display:this.state.finishedDisp,
+                        marginTop:"25px",padding:"25px",
+                        width:"550px", marginLeft: "-75px"
+                    }}>
                 <span><b>Successfully Nominated yourself!</b></span>
                 <img style={{width:"500px",height:"500px"}} src="success.gif" />
             </Paper>     
