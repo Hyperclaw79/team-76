@@ -65,22 +65,31 @@ class Droppy extends React.Component {
 export default class NominationForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '',form_disp:"block"};
+        this.state = {
+            Event: '',
+            Filename: '',
+            Description: '',
+            form_disp:"block"
+        };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
       handleChange(event) {
-        this.setState({value: event.target.value});
+        let param = event.target.placeholder   
+        this.setState({[param] : event.target.value});
       }
     
       handleSubmit(event) {
+        let ev = event  
         let submission = this.refs.droppy.state.uri;
-        let eventName = this.state.value
-        alert("Event: "+eventName+"\nSubmission: "+submission);
+        let Event = this.state.Event
+        let Filename = this.state.Filename
+        let Description = this.state.Description
+        alert("Event: "+Event+"\nFilename: "+Filename+"\nDescription: "+Description+"\nSubmission: "+submission);
         this.setState({form_disp:"none"});
-        event.preventDefault();
+        ev.preventDefault();
       }
     
       render() {
@@ -88,7 +97,9 @@ export default class NominationForm extends React.Component {
            <Paper zDepth={3} className="FormWrapper">    
             <form className="Formy" id="Formy" onSubmit={this.handleSubmit} style={{display:this.state.form_disp}}>
                 <h1>Nominate yourself.</h1>
-                <input placeholder="Event" type="text" value={this.state.value} required onChange={this.handleChange} />
+                <input placeholder="Event" type="text" value={this.state.Event} required onChange={this.handleChange} />
+                <input placeholder="Filename" type="text" value={this.state.Filename} required onChange={this.handleChange} />
+                <input placeholder="Description" type="text" value={this.state.Description} required onChange={this.handleChange} />
                 <Droppy ref="droppy" />
                 <button>Send</button>
             </form> 

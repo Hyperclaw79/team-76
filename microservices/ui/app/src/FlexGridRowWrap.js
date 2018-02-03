@@ -29,7 +29,7 @@ class Cards extends Component {
 }
 
 
-class Flex_grid_row_wrap extends Component {
+class FlexGridRowWrap extends Component {
   constructor(){
     super();
     this.state = {
@@ -83,4 +83,4 @@ class Flex_grid_row_wrap extends Component {
   }
 };
 
-export default Flex_grid_row_wrap;
+export default FlexGridRowWrap;
