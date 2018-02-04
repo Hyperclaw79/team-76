@@ -17,12 +17,12 @@ We will have a 4 screen plan:
 
 
 ## **How is it built?**
-- **For the mobile interface-**
+### **For the mobile interface-**
 - The front-end is built using **React Native** 
 - The Authentication pages are built using pure React Native. React Native uses the same fundamental UI building blocks as regular iOS and Android apps. Those building blocks are put together using JavaScript and React. This also uses an open source module tcomb-form-native for the forms, wrapped around Hasura's Auth API. The main app is divided into several screens and each of them are linked into the Navigation chain, using React Navigation. 
-- **For the web interface-**
+#### **For the web interface-**
 - The front-end of the web application using React. React (sometimes styled React.js or ReactJS) is a JavaScript library for building user interfaces. It is maintained by Facebook, Instagram and a community of individual developers and corporations. This coupled with Material-UI (React Components that Implement Google's Material Design) make up the core of our front-end development. This uses Hasura's Auth API. We have used tab-based navigation. 
-- **Back-end-**
+#### **Back-end-**
 - The backend development has been done using Flask. Flask is a micro web framework written in Python and based on the Werkzeug toolkit and Jinja2 template engine.
 
 ## **Resources/Documentation used:**
