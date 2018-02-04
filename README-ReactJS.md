@@ -63,7 +63,9 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 #### **For the web interface-**
 - After you clone or download the files onto your system. `cd` into the required directory from your **command line**.
 - Then run `npm install` to take care of the required dependencies and files required to run this application.
+- Then run `create-react-app`.
 - After this run `npm start`. You should see **Electon** up and running in your default browser promptly.
+- Add `npm run build` && `npm i serve && serve -s build` for optimized build.
 
 
 ## **Resources/Documentation used:**
