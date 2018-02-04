@@ -26,9 +26,9 @@ We will have a 4 screen plan:
 - The backend development has been done using Flask. Flask is a micro web framework written in Python and based on the Werkzeug toolkit and Jinja2 template engine.
 
 ## **Resources/Documentation used:**
-- [Hasura Docs] (https://docs.hasura.io/0.15/manual/getting-started/index.html)
-- [ReactJS Docs] (https://reactjs.org/docs/hello-world.html)
-- [ReactNative Docs] (https://facebook.github.io/react-native/docs/getting-started.html)
-- [Flask Docs] (http://flask.pocoo.org/docs/0.12/)
-- [NPM docs] (https://docs.npmjs.com/)
-- [tcomb-form-native] (https://github.com/gcanti/tcomb-form-native/tree/master/lib)
+- [Hasura Docs](https://docs.hasura.io/0.15/manual/getting-started/index.html)
+- [ReactJS Docs](https://reactjs.org/docs/hello-world.html)
+- [ReactNative Docs](https://facebook.github.io/react-native/docs/getting-started.html)
+- [Flask Docs](http://flask.pocoo.org/docs/0.12/)
+- [NPM docs](https://docs.npmjs.com/)
+- [tcomb-form-native](https://github.com/gcanti/tcomb-form-native/tree/master/lib)
