@@ -9,18 +9,26 @@ const styles = {
   }
 };
 
+
+
 class Cards extends Component {
   render(){
     return(
       <Card>
         <CardHeader
           title={this.props.title}
-          subtitle={<span><span>{this.props.subtitle}</span><span style={{display:"block"}}>{this.props.tags}</span></span>}
+          subtitle={
+            <div>
+              <span>{this.props.subtitle}</span>
+              <span style={{display:"block"}}>{this.props.tags}</span>
+              <span style={{display:"block"}}>{this.props.deadline}</span>
+            </div>
+          }
           actAsExpander={true}
           showExpandableButton={true}
         />
         <CardMedia expandable={true}>
-          <Nominations />
+          <Nominations data={this.props.nominationData}/>
         </CardMedia>
       </Card>
     );
@@ -45,7 +53,7 @@ export default class VoteBox extends Component {
           {
             this.state.eventsList.map((item,index)=>
               <div key={"EventWrapper-"+index}>
-                <Cards title={item.title} subtitle={item.subtitle} tags={item.tags} />
+                <Cards title={item.title} subtitle={item.subtitle} tags={item.tags} deadline={item.deadline} nominationData={item.nominationData}/>
               </div>
             )
           }

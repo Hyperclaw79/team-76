@@ -3,6 +3,7 @@ import DropzoneComponent from 'react-dropzone-component';
 import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Snackbar from 'material-ui/Snackbar';
 
 class Droppy extends React.Component {
     constructor(props) {
@@ -66,25 +67,48 @@ class DropDown extends React.Component {
 
     constructor(props) {
       super(props);
-      this.state = {eventList:props.eventList,choice: 1};
+      this.state = {open:false,eventList:props.eventList,choice: 1};
     }
   
-    handleChange = (event, index, value) => this.setState({choice:value});
-  
+    handleChange = (event, index, value) => {
+        this.setState({
+            choice:value,
+            open: true
+        });
+    }    
+
+    handleRequestClose = () => {
+        this.setState({
+          open: false,
+        });
+    };
+
     render() {
       return (
-        <DropDownMenu 
-            value={this.state.choice} 
-            onChange={this.handleChange} 
-            style={{width:"50%",height:"100%"}} 
-            autoWidth={false}
-            anchorOrigin={{vertical: 'bottom', horizontal: 'middle'}}>
-            {
-                this.state.eventList.map((item,index)=>
-                    <MenuItem value={index+1} key={index} primaryText={item} />
-                )
-            }
-        </DropDownMenu>
+        <div className="DDWrapper">  
+            <DropDownMenu 
+                value={this.state.choice} 
+                onChange={this.handleChange} 
+                style={{width:"50%",height:"100%"}} 
+                autoWidth={false}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'middle'}}>
+                {
+                    this.state.eventList.map((item,index)=>
+                        <MenuItem value={index+1} key={index} primaryText={item.title} />
+                    )
+                }
+            </DropDownMenu>
+            <Snackbar
+                open={this.state.open}
+                message={
+                    this.state.eventList[this.state.choice-1].subtitle
+                    +this.state.eventList[this.state.choice-1].tags
+                    +this.state.eventList[this.state.choice-1].deadline
+                }
+                autoHideDuration={5000}
+                onRequestClose={this.handleRequestClose}
+            />    
+        </div>
       );
     }
   }
