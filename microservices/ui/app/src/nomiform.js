@@ -137,7 +137,7 @@ export default class NominationForm extends React.Component {
       handleSubmit(event) {
         event.preventDefault();
         let submission = this.refs.droppy.state.uri;
-        let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1];
+        let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1].title;
         let Filename = this.state.Filename;
         let Description = this.state.Description;
         alert("Event: "+Event+"\nFilename: "+Filename+"\nDescription: "+Description+"\nSubmission: "+submission);
