@@ -77,3 +77,4 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 - [tcomb-form-native](https://github.com/gcanti/tcomb-form-native/tree/master/lib)
 - [Material-UI](http://www.material-ui.com/#/get-started/required-knowledge)
 - [React-Dropzone-Component]( https://github.com/felixrieseberg/React-Dropzone-Component)
+- [Create-React-App](https://github.com/facebookincubator/create-react-app)
