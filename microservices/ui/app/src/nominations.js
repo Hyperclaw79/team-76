@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
@@ -25,7 +24,7 @@ const styles = {
 
 };
 
-class FlexGridColumnWrapRight extends Component {
+export default class Nominations extends Component {
 
   constructor(props) {
       super(props);
@@ -116,5 +115,3 @@ class FlexGridColumnWrapRight extends Component {
     )
   }
 };
-
-export default FlexGridColumnWrapRight;

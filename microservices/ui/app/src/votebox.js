@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import Paper from 'material-ui/Paper';
 import {Card, CardHeader, CardMedia} from 'material-ui/Card';
-import FlexGridColumnWrapCentre from './FlexGridColumnWrapCentre';
+import Nominations from './nominations';
 
 const styles = {
   div:{
@@ -21,7 +20,7 @@ class Cards extends Component {
           showExpandableButton={true}
         />
         <CardMedia expandable={true}>
-          <FlexGridColumnWrapCentre />
+          <Nominations />
         </CardMedia>
       </Card>
     );
@@ -29,37 +28,11 @@ class Cards extends Component {
 }
 
 
-class FlexGridRowWrap extends Component {
-  constructor(){
-    super();
+export default class VoteBox extends Component {
+  constructor(props){
+    super(props);
     this.state = {
-      eventsList: [
-        {
-          title:"Selfie Contest",
-          subtitle:"Who's the best looking?",
-          tags:"#faces #selfies"
-        },
-        {
-          title:"Audiophilia",
-          subtitle:"Anyone's gonna rule the music league here?",
-          tags:"#recordings #songs"
-        },
-        {
-          title:"Meme Wars",
-          subtitle:"May the best meme win!",
-          tags:"#memes"
-        },
-        {
-          title:"Art Battle",
-          subtitle:"Brush up for the battle of brushes and pencils.",
-          tags:"#drawing #sketches #painting #art"
-        },
-        {
-          title:"Pen up!",
-          subtitle:"Showcase your best articles/stories here.",
-          tags:"#writing #stories #articles"
-        }
-      ]
+      eventsList: props.eventsList
     }
   }
   render() {
@@ -83,4 +56,3 @@ class FlexGridRowWrap extends Component {
   }
 };
 
-export default FlexGridRowWrap;

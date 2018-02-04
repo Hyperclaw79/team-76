@@ -1,6 +1,5 @@
 import React from 'react';
 import DropzoneComponent from 'react-dropzone-component';
-import './formy.css'
 import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -99,7 +98,7 @@ export default class NominationForm extends React.Component {
             Description: '',
             form_disp: "block",
             finishedDisp: "none",
-            eventList: ["Selfie Contest","Audiophilia","Meme Wars","Art Battle","Pen up!"]
+            eventList: props.eventList
         };
     
         this.handleChange = this.handleChange.bind(this);

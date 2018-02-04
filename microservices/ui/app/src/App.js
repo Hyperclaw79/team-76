@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
-import './dropzone.min.css';
-import './filepicker.css';
 import ElectonBox from './electon_core';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
