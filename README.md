@@ -17,7 +17,7 @@ We will have a 4 screen plan:
 
 
 ## **How is it built?**
-### **For the mobile interface-**
+#### **For the mobile interface-**
 - The front-end is built using **React Native** 
 - The Authentication pages are built using pure React Native. React Native uses the same fundamental UI building blocks as regular iOS and Android apps. Those building blocks are put together using JavaScript and React. This also uses an open source module tcomb-form-native for the forms, wrapped around Hasura's Auth API. The main app is divided into several screens and each of them are linked into the Navigation chain, using React Navigation. 
 #### **For the web interface-**
