@@ -102,8 +102,8 @@ class DropDown extends React.Component {
                 open={this.state.open}
                 message={
                     this.state.eventList[this.state.choice-1].subtitle
-                    +this.state.eventList[this.state.choice-1].tags
-                    +this.state.eventList[this.state.choice-1].deadline
+                    +"        "+this.state.eventList[this.state.choice-1].tags
+                    +"        "+this.state.eventList[this.state.choice-1].deadline
                 }
                 autoHideDuration={5000}
                 onRequestClose={this.handleRequestClose}
