@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
-import NominationForm from './Nomiform';
+import NominationForm from './nomiform';
 import VoteBox from './votebox';
 import Paper from 'material-ui/Paper'
+import ResultsBox from './resultsbox'
 
 const iconStyles = {
   marginRight: 500,
@@ -229,8 +230,9 @@ export default class EventBox extends Component {
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>grade</FontIcon>}
-            label="Results!"
-          />
+            label="Results!">
+          <ResultsBox />
+          </Tab>  
         </Tabs>
         <FontIcon className="material-icons" style={iconStyles}></FontIcon>
       </Paper>
