@@ -75,3 +75,5 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 - [Flask Docs](http://flask.pocoo.org/docs/0.12/)
 - [NPM docs](https://docs.npmjs.com/)
 - [tcomb-form-native](https://github.com/gcanti/tcomb-form-native/tree/master/lib)
+- [Material-UI](http://www.material-ui.com/#/get-started/required-knowledge)
+- [React-Dropzone-Component]( https://github.com/felixrieseberg/React-Dropzone-Component)
