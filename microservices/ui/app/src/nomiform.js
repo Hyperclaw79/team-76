@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
+import axios from 'axios';
 
 class Droppy extends React.Component {
     constructor(props) {
@@ -140,8 +141,15 @@ export default class NominationForm extends React.Component {
         let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1].title;
         let Filename = this.state.Filename;
         let Description = this.state.Description;
-        alert("Event: "+Event+"\nFilename: "+Filename+"\nDescription: "+Description+"\nSubmission: "+submission);
-        this.setState({form_disp:"none",finishedDisp:"block"});
+        let body = {
+            "Event":Event,
+            "Filename":Filename,
+            "Description":Description,
+            "Submission":submission
+        }
+        axios.post(`http://api.${process.env.CLUSTER_NAME}.hasura-app.io/nominate`,body).then((result)=>{
+            this.setState({form_disp:"none",finishedDisp:"block"});
+        })
       }
     
       render() {

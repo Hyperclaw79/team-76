@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ElectonBox from './electon_core';
+import ElectonBox from './electonbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
 
@@ -14,6 +14,7 @@ const bannerStyle = {
   margin:"auto",
   marginTop:"10px",
   marginBottom:"10px",
+  textAlign: "center"
 }
 
 class App extends Component {

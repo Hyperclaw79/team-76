@@ -62,3 +62,22 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.overlay {
+	margin-top: -105px; 
+	padding-left: 25px;
+	width: auto;
+	height: 100px;
+	background-color: rgba(0,0,0,0.65);
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.overlay::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+.overlay::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
