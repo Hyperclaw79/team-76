@@ -165,7 +165,14 @@ export default class EventBox extends Component {
   }
   render() {
     return (
-      <Paper zDepth={3} style={{backgroundColor: '#262df5',width:"65%",marginRight:"70px"}}>
+      <Paper zDepth={3} 
+        style={
+          {
+            backgroundColor: '#262df5',
+            width:"65%",marginRight:"70px",
+          }
+        }
+      >
         <Tabs>
           <Tab
             style={{backgroundColor:"#00c3ff"}}

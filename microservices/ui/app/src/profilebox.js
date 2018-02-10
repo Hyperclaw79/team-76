@@ -1,23 +1,7 @@
 import React, { Component } from 'react';
-import Badge from 'material-ui/Badge';
-import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
-
-const Cardstyle ={ backgroundColor: '#00695C',
-
- }
-
-const iconStyles = {
-  marginRight: 5,
-  padding: 10
-};
-
-
+import axios from 'axios';
+import {Card, CardMedia, CardText} from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 
 export default class ProfileBox extends Component {
   constructor(){
@@ -25,43 +9,42 @@ export default class ProfileBox extends Component {
     this.state = {
       userData: {
         Name: "Tony Stark",
-        Score: "7",
+        Avatar: "http://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2-xlarge_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg",
+        Score: 7,
         Latest: "Robot Hacking"
       }
     }
   }
+  componentDidMount(){
+    axios.get(`https://api.${process.env.CLUSTER_NAME}.hasura-app.io/user`).then((result)=>{
+      this.setState({userData:result.data})
+    })
+  }
   render() {
     return (
-      <div className="RightSideHeader">
-
-
-              <Card style={Cardstyle}>
-
-                <CardHeader
-                  title={<h2>{this.state.userData.Name}</h2>}
-                  subtitle={<h3>User Statistics</h3>}
-                />
-                <CardMedia>
-                  <i class="material-icons">account_circle</i>
-                </CardMedia>
-                <CardActions>
-                  <Divider />
-                <FlatButton
-                  label={"Totally won "+this.state.userData.Score+"events"}
-                  backgroundColor="#69F0AE"
-                  hoverColor="#FFFFFF"
-                />
-              <FlatButton
-                style={{display:"block"}}
-                label={"Last Participated in: "+this.state.userData.Latest}
-                backgroundColor="#69F0AE"
-                hoverColor="#FFFFFF"
-              />
-                </CardActions>
-              </Card>
-
-
-   </div>
+      <Paper className="ProfileBoxWrapper" style={{backgroundColor:'#262df5',width:"360px", height:"500px"}}>
+        <Paper style={{backgroundColor:'#00c3ff', height:"72px", paddingTop:"1px"}}>
+          <h1 style={{color:"white"}}>Profile</h1>
+        </Paper>
+        <Card style={{marginTop:"10px"}}>
+          <CardMedia style={{width:"350px", margin:"3px"}}>
+            <img
+              src={this.state.userData.Avatar} 
+              className="user-avatar" alt="" 
+              style={{border:"2px solid black"}}
+            />
+          </CardMedia>
+        </Card>
+        <Card style={{marginTop:"10px"}}>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>{<h2>{this.state.userData.Name}</h2>}</CardText>
+        </Card>
+        <Card style={{marginTop:"10px"}}>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>{"Totally won "+this.state.userData.Score+" events"}</CardText>
+        </Card>
+        <Card style={{marginTop:"10px", marginBottom:"10px"}}>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>Last Participated in:<b style={{marginLeft:"10px"}}>{this.state.userData.Latest}</b></CardText>
+        </Card>
+      </Paper>
     );
   }
 }

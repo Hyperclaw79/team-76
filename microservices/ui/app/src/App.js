@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
 
 const Styleapp = {
-  width: '100%',
+  width: '100%'
 }
 const bannerStyle = {
   backgroundColor:"white",
