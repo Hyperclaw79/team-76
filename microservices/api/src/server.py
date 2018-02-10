@@ -137,20 +137,28 @@ def nominate():
 def results():
     '''Send results of events which are over'''
     resultsData = [
-        {
-        "Username": "Winner",
-        "Filename": "Dope Ironman",
-        "Description": "This is the dopest ironman pic. So it should win.",
-        "Submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
-        "Votes": 123
-        },
-        {
-        "Username": "User",
-        "Filename": "KmgnPmWM",
-        "Description": "ycxbzbIFbRGsymaB",
-        "Submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
-        "Votes": 100
-        }
+        { 
+            "Event": "Ironman pics", 
+            "Details": 
+            {
+                "Winner":
+                {
+                    "Username": "Hyper",
+                    "Filename": "Dope Ironman",
+                    "Description": "This is the dopest ironman pic. So it should win.",
+                    "Submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
+                    "Votes": 123
+                },
+                "User":
+                {
+                    "Username": "gYpfSMWpXFf",
+                    "Filename": "KmgnPmWM",
+                    "Description": "ycxbzbIFbRGsymaB",
+                    "Submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
+                    "Votes": 100
+                }
+            }
+        }  
     ]
     return jsonify(data=resultsData)
 
