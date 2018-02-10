@@ -46,52 +46,6 @@ const bannerStyleWon = {
   textAlign: "center"
 }
 
-const resultsData = [
-  { 
-    "Event": "Ironman pics", 
-    "Details": 
-    {
-      "Winner":
-      {
-        "Username": "Hyper",
-        "Filename": "Dope Ironman",
-        "Description": "This is the dopest ironman pic. So it should win.",
-        "Submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
-        "Votes": 123
-      },
-      "User":
-      {
-        "Username": "Mr. X",
-        "Filename": "Some lame pic",
-        "Description": "Read the filename",
-        "Submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
-        "Votes": 100
-      }
-    }
-  },
-  { 
-    "Event": "Another Finished Event", 
-    "Details": 
-    {
-      "User":
-      {
-        "Username": "Mr. X",
-        "Filename": "ShowBot Demo",
-        "Description": "The video showing ShowBot in action.",
-        "Submission": "https://www.youtube.com/embed/rMxjhtTXLRo",
-        "Votes": 100
-      },
-      "Winner":
-      {
-        "Username": "Mr. Y",
-        "Filename": "Meh",
-        "Description": "Read the filename again.",
-        "Submission": "https://www.youtube.com/embed/VIaeDoh2vvc",
-        "Votes": 100
-      }
-    }
-  }  
-]
 
 class ResBox extends Component {
   handleOverlay = (e)=>{
@@ -178,12 +132,12 @@ export default class ResultsBox extends Component {
   constructor(){
       super();
       this.state = {
-        results:resultsData.map((res)=>this.generator(res))
+        results:[]
       }
   }
   componentDidMount(){
-    axios.get(`http://api.${process.env.CLUSTER_NAME}.hasura-app.io/results`).then((result)=>{
-      this.setState({results:result.data.map((res)=>this.generator(res))})
+    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/results`).then((result)=>{
+      this.setState({results:result.data.data.map((res)=>this.generator(res))})
     })
   }
   generator = (eventObj) => {

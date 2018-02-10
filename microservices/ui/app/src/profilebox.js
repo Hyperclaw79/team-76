@@ -7,17 +7,12 @@ export default class ProfileBox extends Component {
   constructor(){
     super();
     this.state = {
-      userData: {
-        Name: "Tony Stark",
-        Avatar: "http://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2-xlarge_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg",
-        Score: 7,
-        Latest: "Robot Hacking"
-      }
+      userData: {}
     }
   }
   componentDidMount(){
-    axios.get(`https://api.${process.env.CLUSTER_NAME}.hasura-app.io/user`).then((result)=>{
-      this.setState({userData:result.data})
+    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/users`).then((result)=>{
+      this.setState({userData:result.data.data})
     })
   }
   render() {
