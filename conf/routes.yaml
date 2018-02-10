@@ -174,7 +174,7 @@ ui:
     upstreamServicePort: 80
     authorizationPolicy:
         restrictToRoles: ["user"]
-        noSessionRedirectUrl: https://api.{{ cluster_.name }}.hasura-app.io/ui
+        noSessionRedirectUrl: https://api.{{ cluster.name }}.hasura-app.io/ui
 api:
   /:
     corsPolicy: null
