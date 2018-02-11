@@ -24,20 +24,20 @@ export default class ProfileBox extends Component {
         <Card style={{marginTop:"10px"}}>
           <CardMedia style={{width:"350px", margin:"3px"}}>
             <img
-              src={this.state.userData.Avatar} 
+              src={this.state.userData.avatar} 
               className="user-avatar" alt="" 
               style={{border:"2px solid black"}}
             />
           </CardMedia>
         </Card>
         <Card style={{marginTop:"10px"}}>
-          <CardText style={{padding:"0px", paddingTop:"5px"}}>{<h2>{this.state.userData.Name}</h2>}</CardText>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>{<h2>{this.state.userData.name}</h2>}</CardText>
         </Card>
         <Card style={{marginTop:"10px"}}>
-          <CardText style={{padding:"0px", paddingTop:"5px"}}>{"Totally won "+this.state.userData.Score+" events"}</CardText>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>{"Totally won "+this.state.userData.score+" events"}</CardText>
         </Card>
         <Card style={{marginTop:"10px", marginBottom:"10px"}}>
-          <CardText style={{padding:"0px", paddingTop:"5px"}}>Last Participated in:<b style={{marginLeft:"10px"}}>{this.state.userData.Latest}</b></CardText>
+          <CardText style={{padding:"0px", paddingTop:"5px"}}>Last Participated in:<b style={{marginLeft:"10px"}}>{this.state.userData.latest}</b></CardText>
         </Card>
       </Paper>
     );

@@ -170,7 +170,7 @@ ui:
     upstreamService:
       name: ui
       namespace: '{{ cluster.metadata.namespaces.user }}'
-    upstreamServicePath: /ui
+    upstreamServicePath: /
     upstreamServicePort: 80
     # authorizationPolicy:
         # restrictToRoles: ["user"]
