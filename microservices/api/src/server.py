@@ -1,5 +1,5 @@
 from src import app
-from flask import jsonify
+from flask import jsonify, abort
 
 
 @app.route("/")
@@ -18,6 +18,7 @@ def get_events(phase):
             "subtitle": "Who's the best looking?",
             "tags": "#faces #selfies",
             "deadline": '5days',
+            "phase": 'running',
             "nominationData": [
             {
                 "Username": "ymmIADMSK",
@@ -55,7 +56,8 @@ def get_events(phase):
             "title": "Audiophilia",
             "subtitle": "Anyone's gonna rule the music league here?",
             "tags": "#recordings #songs",
-            "deadline": '4days'
+            "deadline": '4days',
+            "phase": 'open'
         }
     ]
     return jsonify(data=[event for event in dummy_data if event['phase']==phase])
