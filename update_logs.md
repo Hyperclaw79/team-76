@@ -6,6 +6,7 @@
 
 **grk**:
 `Auth Screens for Mobile version.`
+
 *January 31*
 
 **sns**:
@@ -24,6 +25,7 @@
 4. Implemented Nomination Form.
 5. Fixed some warnings and errors in the skeleton.
 ```
+
 *February 03*
 
 **Hyper**:
@@ -41,6 +43,7 @@
 2. Vote, Results, Profile screens made.
 3. Added StackNavigation over each election on Vote Screen.
 ```
+
 *February 04*
 
 **sns**:
@@ -73,6 +76,7 @@ Done with the biggest part of linking Auth and Home screens.
 ```
 
 **sns:**``Made README.MD for Electon github repo.``
+
 *February 09*
 
 **Hyper**:
@@ -98,6 +102,7 @@ Done with the biggest part of linking Auth and Home screens.
 1. ProfileBox Overhaul.
 2. Fixed package.json for reactjs. 
 ```
+
 *February 11*
 
 **Hyper**:
