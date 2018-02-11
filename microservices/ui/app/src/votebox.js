@@ -45,10 +45,10 @@ export default class VoteBox extends Component {
         "deadline": "",
         "nominationData": [
             {
-                "Description": "",
-                "Filename": "",
-                "Submission": "",
-                "Username": ""
+                "description": "",
+                "filename": "",
+                "submission": "",
+                "username": ""
             }
         ],
         "phase": "running",
