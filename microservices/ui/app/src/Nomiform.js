@@ -68,9 +68,27 @@ class DropDown extends React.Component {
 
     constructor(props) {
       super(props);
-      this.state = {open:false,eventList:props.eventList,choice: 1};
+      this.state = {
+          open:false,
+          eventList: [
+            {
+              "deadline": "",
+              "phase": "open",
+              "subtitle": "",
+              "tags": "",
+              "title": ""
+            }
+          ],
+          choice: 1
+        };
     }
-  
+
+    componentDidMount(){
+        axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/noms-native`).then((result)=>{
+          this.setState({eventList:result.data.data})
+        })
+      }
+
     handleChange = (event, index, value) => {
         this.setState({
             choice:value,
@@ -123,13 +141,12 @@ export default class NominationForm extends React.Component {
             Description: '',
             form_disp: "block",
             finishedDisp: "none",
-            eventList: props.eventList
         };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-    
+
       handleChange(event) {
         let param = event.target.placeholder   
         this.setState({[param] : event.target.value});

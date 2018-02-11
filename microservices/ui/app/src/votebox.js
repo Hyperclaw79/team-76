@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import {Card, CardHeader, CardMedia} from 'material-ui/Card';
 import Nominations from './nominations';
+import axios from 'axios';
 
 const styles = {
   div:{
@@ -37,11 +38,30 @@ class Cards extends Component {
 
 
 export default class VoteBox extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
-      eventsList: props.eventsList
-    }
+      eventList:[{
+        "deadline": "",
+        "nominationData": [
+            {
+                "Description": "",
+                "Filename": "",
+                "Submission": "",
+                "Username": ""
+            }
+        ],
+        "phase": "running",
+        "subtitle": "",
+        "tags": "",
+        "title": ""
+      }]
+    }  
+  }
+  componentDidMount(){
+    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/vote-native`).then((result)=>{
+      this.setState({eventList:result.data.data})
+    })
   }
   render() {
     return (
@@ -51,7 +71,7 @@ export default class VoteBox extends Component {
           <hr />
           <Paper zDepth={3}>
           {
-            this.state.eventsList.map((item,index)=>
+            this.state.eventList.map((item,index)=>
               <div key={"EventWrapper-"+index}>
                 <Cards title={item.title} subtitle={item.subtitle} tags={item.tags} deadline={item.deadline} nominationData={{"nominationData":item.nominationData,"eventName":item.title}}/>
               </div>

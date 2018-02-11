@@ -5,7 +5,6 @@ import NominationForm from './nomiform';
 import VoteBox from './votebox';
 import Paper from 'material-ui/Paper'
 import ResultsBox from './resultsbox'
-import axios from 'axios'
 
 const iconStyles = {
   marginRight: 500,
@@ -14,56 +13,6 @@ const iconStyles = {
 
 
 export default class EventBox extends Component {
-  constructor(){
-    super();
-    this.state = {
-      init: "none",
-      status:"Please wait while it loads.",
-      running:[{
-        "deadline": "",
-        "nominationData": [
-            {
-                "Description": "",
-                "Filename": "",
-                "Submission": "",
-                "Username": ""
-            }
-        ],
-        "phase": "running",
-        "subtitle": "",
-        "tags": "",
-        "title": ""
-      }],
-      open:[{
-        "deadline": "",
-        "phase": "open",
-        "subtitle": "",
-        "tags": "",
-        "title": ""
-      }]
-    }
-  }
-  componentDidMount(){
-    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/events`).then((result)=>{
-      const runner = result.data.data.filter((event)=>{
-        return event.phase === 'running';
-      });
-      const opener = result.data.data.filter((event)=>{
-        return event.phase === 'open';
-      });
-      this.setState(
-        {
-          running:runner,
-          open:opener,
-          init:"block",
-          status:"Loaded!"
-        },()=>{
-          this.forceUpdate()
-          console.log(this.state)
-        }
-      )
-    })
-  }
   render() {
     return (
       <Paper zDepth={3} 
@@ -74,19 +23,18 @@ export default class EventBox extends Component {
           }
         }
       >
-        <span>{this.state.status}</span>
-        <Tabs style={{display:this.state.init}}>
+        <Tabs>
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>check_circle</FontIcon>}
             label="Vote!">
-             <VoteBox eventsList={this.state.running} />  
+             <VoteBox />  
           </Tab>  
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>face</FontIcon>}
             label="Nominate!">
-              <NominationForm eventList={this.state.open} />    
+              <NominationForm />    
           </Tab>  
           <Tab
             style={{backgroundColor:"#00c3ff"}}
