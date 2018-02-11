@@ -84,7 +84,7 @@ class DropDown extends React.Component {
     }
 
     componentDidMount(){
-        axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/noms-native`).then((result)=>{
+        axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/events/open`).then((result)=>{
           this.setState({eventList:result.data.data})
         })
       }

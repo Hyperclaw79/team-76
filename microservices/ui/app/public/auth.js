@@ -56,7 +56,7 @@
         google: null,
         github: null,
         linkedin: null,
-        redirectUrl: "https://ui.fortune22.hasura-io.app",
+        redirectUrl: window._env.redirectUrl,
         theme: "dark"
     };
     t.a = r
