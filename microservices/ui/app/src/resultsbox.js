@@ -145,7 +145,7 @@ export default class ResultsBox extends Component {
     let styleArr = [bannerStyleLost,bannerStyleWon]
     let handler = eventObj["details"]
     handler["user"]["username"] = "You"
-    if (eventObj.Details.Winner.Votes <= eventObj.Details.User.Votes)
+    if (eventObj.details.winner.votes <= eventObj.details.user.votes)
     {
       handler["message"] = messArr[1]
       handler["winner"] = handler["user"]
