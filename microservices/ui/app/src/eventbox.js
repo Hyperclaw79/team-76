@@ -53,9 +53,11 @@ export default class EventBox extends Component {
         {
           running:runner,
           open:opener
-        },()=>this.forceUpdate()
+        },()=>{
+          this.forceUpdate()
+          console.log(this.state)
+        }
       )
-      console.log(this.state)
     })
   }
   render() {
