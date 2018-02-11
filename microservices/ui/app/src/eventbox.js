@@ -17,6 +17,8 @@ export default class EventBox extends Component {
   constructor(){
     super();
     this.state = {
+      init: "none",
+      status:"Please wait while it loads.",
       running:[{
         "deadline": "",
         "nominationData": [
@@ -52,7 +54,9 @@ export default class EventBox extends Component {
       this.setState(
         {
           running:runner,
-          open:opener
+          open:opener,
+          init:"block",
+          status:"Loaded!"
         },()=>{
           this.forceUpdate()
           console.log(this.state)
@@ -70,7 +74,8 @@ export default class EventBox extends Component {
           }
         }
       >
-        <Tabs>
+        <span>{this.state.status}</span>
+        <Tabs style={{display:this.state.init}}>
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>check_circle</FontIcon>}
