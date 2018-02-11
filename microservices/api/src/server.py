@@ -21,34 +21,34 @@ def get_events(phase):
             "phase": 'running',
             "nominationData": [
             {
-                "Username": "ymmIADMSK",
-                "Filename": "QLhosFCXRngD",
-                "Description": "LuqGEzcASVDVcFIAGPWM",
-                "Submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg"
+                "username": "ymmIADMSK",
+                "filename": "QLhosFCXRngD",
+                "description": "LuqGEzcASVDVcFIAGPWM",
+                "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg"
             },
             {
-                "Username": "gYpfSMWpXFf",
-                "Filename": "KmgnPmWM",
-                "Description": "ycxbzbIFbRGsymaB",
-                "Submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg"
+                "username": "gYpfSMWpXFf",
+                "filename": "KmgnPmWM",
+                "description": "ycxbzbIFbRGsymaB",
+                "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg"
             },
             {
-                "Username": "DQuClE",
-                "Filename": "SHBIgOwkvMfV",
-                "Description": "hBZuPcmsJUDOrXzTPowLY",
-                "Submission": "https://www.sideshowtoy.com/assets/products/400310-iron-man-mark-iii/lg/marvel-iron-man-mark-3-life-size-figure-400310-08.jpg"
+                "username": "DQuClE",
+                "filename": "SHBIgOwkvMfV",
+                "description": "hBZuPcmsJUDOrXzTPowLY",
+                "submission": "https://www.sideshowtoy.com/assets/products/400310-iron-man-mark-iii/lg/marvel-iron-man-mark-3-life-size-figure-400310-08.jpg"
             },
             {
-                "Username": "DZTFNUgiCb",
-                "Filename": "pAHlFdbb",
-                "Description": "MmGdoODojEVkypGLxmbwBo",
-                "Submission": "https://images-na.ssl-images-amazon.com/images/I/91qvAndeVYL._RI_.jpg"
+                "username": "DZTFNUgiCb",
+                "filename": "pAHlFdbb",
+                "description": "MmGdoODojEVkypGLxmbwBo",
+                "submission": "https://images-na.ssl-images-amazon.com/images/I/91qvAndeVYL._RI_.jpg"
             },
             {
-                "Username": "FHCegEPGd",
-                "Filename": "AeBNKdu",
-                "Description": "FcuntDPGFeKOtDWUVW",
-                "Submission": "https://vignette.wikia.nocookie.net/marveldatabase/images/0/06/Iron_Man_Armor_Model_37.jpg"
+                "username": "FHCegEPGd",
+                "filename": "AeBNKdu",
+                "description": "FcuntDPGFeKOtDWUVW",
+                "submission": "https://vignette.wikia.nocookie.net/marveldatabase/images/0/06/Iron_Man_Armor_Model_37.jpg"
             }
         ]
         },
@@ -80,24 +80,24 @@ def results():
     '''Send results of events which are over'''
     resultsData = [
         { 
-            "Event": "Ironman pics", 
-            "Details": 
+            "event": "Ironman pics", 
+            "details": 
             {
-                "Winner":
+                "winner":
                 {
-                    "Username": "Hyper",
-                    "Filename": "Dope Ironman",
-                    "Description": "This is the dopest ironman pic. So it should win.",
-                    "Submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
-                    "Votes": 123
+                    "username": "Hyper",
+                    "filename": "Dope Ironman",
+                    "description": "This is the dopest ironman pic. So it should win.",
+                    "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
+                    "votes": 123
                 },
-                "User":
+                "user":
                 {
-                    "Username": "gYpfSMWpXFf",
-                    "Filename": "KmgnPmWM",
-                    "Description": "ycxbzbIFbRGsymaB",
-                    "Submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
-                    "Votes": 100
+                    "username": "gYpfSMWpXFf",
+                    "filename": "KmgnPmWM",
+                    "description": "ycxbzbIFbRGsymaB",
+                    "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
+                    "votes": 100
                 }
             }
         }  
@@ -108,9 +108,9 @@ def results():
 @app.route('/users')
 def users():
     dummy_data = {
-        "Name": "Tony Stark",
-        "Avatar": "http://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2-xlarge_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg",
-        "Score": 7,
-        "Latest": "Robot Hacking"
+        "name": "Tony Stark",
+        "avatar": "http://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2-xlarge_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg",
+        "score": 7,
+        "latest": "Robot Hacking"
     }
     return jsonify(data=dummy_data)
