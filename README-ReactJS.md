@@ -21,9 +21,9 @@ We will have a 4 screen plan:
 - The front-end is built using **React Native** 
 - The Authentication pages are built using pure React Native. React Native uses the same fundamental UI building blocks as regular iOS and Android apps. Those building blocks are put together using JavaScript and React. This also uses an open source module tcomb-form-native for the forms, wrapped around Hasura's Auth API. The main app is divided into several screens and each of them are linked into the Navigation chain, using React Navigation. 
 #### **For the web interface-**
-- The front-end of the web application using React. React (sometimes styled React.js or ReactJS) is a JavaScript library for building user interfaces. It is maintained by Facebook, Instagram and a community of individual developers and corporations. This coupled with Material-UI (React Components that Implement Google's Material Design) make up the core of our front-end development. This uses Hasura's Auth API. We have used tab-based navigation. 
+- The front-end of the web application using **React**. React (sometimes styled React.js or ReactJS) is a JavaScript library for building user interfaces. It is maintained by Facebook, Instagram and a community of individual developers and corporations. This coupled with **Material-UI** (React Components that Implement Google's Material Design) make up the core of our front-end development. This uses Hasura's Auth API. We have used tab-based navigation. 
 #### **Back-end-**
-- The backend development has been done using Flask. Flask is a micro web framework written in Python and based on the Werkzeug toolkit and Jinja2 template engine.
+- The backend development has been done using **Flask**. Flask is a micro web framework written in Python and based on the Werkzeug toolkit and Jinja2 template engine.
 
 
 ## **Deployment instructions**
@@ -38,18 +38,20 @@ Then run the following commands-
 - `$ git push hasura master`
 
 Run the below command to open your shiny new deployed Electon app.
- -  `$ hasura microservice open electon`
+ -  `$ hasura microservice open ui`
   
 ### **Making changes and deploying:**
 To make changes to the project, edit the files in `src` folder according to your app.
-Commit the changes, and perform `git push hasura master` to deploy the changes.
+Add and commit the changes, and perform `git push hasura master` to deploy the changes.
 
 ### **Local development:**
 - To test and make changes to this app locally, follow the below instructions.
-- Open Terminal and cd into the project folder
-- Run npm install to install all the project dependencies
-- Run yarn start and yarn build in the terminal to build and run it.
+- Open Terminal and `cd` into the project folder
+- Run `npm install` to install all the project dependencies
+- Run `npm start` for the dev mode app which will automatically open in the browser. This mode supports hot module replacement and live reload.
 - Make changes to the app, and see the changes in the browser.
+- For a more production optimized app, execute `npm run build` in the terminal to build and serve it with a module like Serve.
+ `npm i serve && serve -s build`
 
 
 ## **Resources/Documentation used:**
