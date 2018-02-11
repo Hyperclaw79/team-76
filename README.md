@@ -3,7 +3,7 @@ Electon allows registered users to cast their votes as well as nominate themselv
 Our users can upload text or media and allow other users to cast their votes on it. The results of every “election” will be displayed at the end of the time-limit.
 This inludes both web and mobile interfaces of our application. Currently this application is running on cluster **fortune22** hosted by Hasura.
 
-![Electon Native](https://cdn.rawgit.com/Hyperclaw79/team-76/e8199b02/readme-assets/electon-native.gif)
+![Electon Native](https://rawgit.com/Hyperclaw79/team-76/2a5585e0e2f6edd7eeac69f088c68240d12b5105/readme-assets/electon-native.gif)
 
 ## **How it works?**
 Admin can start an election like "Who's got the best selfie?" and anyone can nominate themselves with a valid selfie of theirs within a nomination deadline. After nomination deadline, the voting process starts and anyone can vote till the voting deadline. After said deadline the ultimate result will be displayed. After this the nominees are free to compete in other elections. A nominee in one election cannot nominate himself for any other election until the former is finished.
