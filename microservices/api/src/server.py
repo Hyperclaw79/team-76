@@ -7,16 +7,17 @@ def home():
     return "Hasura Hello World"
 
 
-@app.route('/events')
-def get_events():
-    ''' Returns a JSON with all events data currently live'''
+@app.route('/events/<phase>')
+def get_events(phase):
+    ''' Returns a JSON with all events data currently in a perticular phase i.e (running/open)'''
+    if phase not in ['open', 'running']:
+        abort(404)
     dummy_data = [
         {
             "title": "Selfie Contest",
             "subtitle": "Who's the best looking?",
             "tags": "#faces #selfies",
             "deadline": '5days',
-            "phase": 'running',
             "nominationData": [
             {
                 "Username": "ymmIADMSK",
@@ -54,161 +55,10 @@ def get_events():
             "title": "Audiophilia",
             "subtitle": "Anyone's gonna rule the music league here?",
             "tags": "#recordings #songs",
-            "deadline": '4days',
-            "phase": 'open'
+            "deadline": '4days'
         }
     ]
-    return jsonify(data=dummy_data)
-
-
-@app.route('/vote-native')
-def vote_native():
-    dummy_data = [
-          {
-              "title":"Selfie Contest",
-              "subtitle":"Who the best looking?",
-              "tags":"#faces #selfies",
-              "deadline": 5,
-              "nominationData": [
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Please Upvote! _/\\_",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "This is an audio file.",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Video. Just for a demo that it can render all file types. Else, one election will only have one file typed nominations.",
-                }
-              ]
-          },
-          {
-              "title":"Audiophilia",
-              "subtitle":"Anyone gonna rule the music league here?",
-              "tags": "#recordings #songs",
-              "deadline": 5,
-              "nominationData": [
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Blah Blah Blah",
-                }
-              ]
-          },
-          {
-              "title":"Meme Wars",
-              "subtitle":"May the best meme win!",
-              "tags":"#memes",
-              "deadline": 5,
-              "nominationData": [
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Please Upvote! _/\\_",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "This is an audio file.",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Video. Just for a demo that it can render all file types. Else, one election will only have one file typed nominations.",
-                }
-              ]
-          },
-          {
-              "title":"Art Battle",
-              "subtitle":"Brush up for the battle of brushes and pencils.",
-              "tags": "#drawing #sketches #painting #art",
-              "deadline": 5,
-              "nominationData": [
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Blah Blah Blah",
-                }
-              ]
-          },
-          {
-              "title":"Pen up!",
-              "subtitle":"Showcase your best articles/stories here.",
-              "tags": "#writing #stories #articles",
-              "deadline": 5,
-              "nominationData": [
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Please Upvote! _/\\_",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "This is an audio file.",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Video. Just for a demo that it can render all file types. Else, one election will only have one file typed nominations.",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://www.montereybayaquarium.org/-/m/images/animal-guide/marine-mammals/sea-otter-mom-pup.jpg?mh=916&mw=1222&usecustomfunctions=1&centercrop=1",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                  "description": "Blah Blah Blah",
-                },
-                {
-                  "username": "Voter Otter",
-                  "file": "http://techslides.com/demos/sample-videos/small.mp4",
-                  "description": "Blah Blah Blah",
-                }
-              ]
-          }
-      ]
-    return jsonify(data=dummy_data)
-
-
-@app.route('/noms-native')
-def noms_native():
-    dummy_data = [
-        {
-            "title": "Audiophilia",
-            "subtitle": "Anyone's gonna rule the music league here?",
-            "tags": "#recordings #songs",
-            "deadline": '4days',
-        }
-    ]
-    return jsonify(data=dummy_data)
+    return jsonify(data=[event for event in dummy_data if event['phase']==phase])
 
 
 @app.route('/vote', methods=['POST'])
