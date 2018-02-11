@@ -66,13 +66,13 @@ def get_events(phase):
 @app.route('/vote', methods=['POST'])
 def vote():
     '''Gives vote to specified event'''
-    pass
+    return "Voted!"
 
 
 @app.route('/nominate', methods=['POST'])
 def nominate():
     '''Nominate a new entry in a event'''
-    pass
+    return "Nominated!"
 
 
 @app.route('/results')
