@@ -11,10 +11,9 @@ Admin can start an election like "Who's got the best selfie?" and anyone can nom
 We will have a 4 screen plan:
 
 1. Login Form: We have used Hasura's authentication API and authentication kit. We have also modified said authentication kit with custom color theme.
-2. A Listing of all currently running events. This will be called the **Vote** screen, where registered users can upvote their desired candidates.
-3. A dynamically **Nominate** screen created page for each event which will initially include a submission form.
-4. A dynamically created **Results** page for each event. Dynamically created meaning, it will basically be a template page which will be filled with details obtained throughout the event. This will ensure uniformity.
-
+2. A Listing of all currently running events. This will be called the **Vote** screen, where registered users can upvote on their desired choice in each event.
+3. **Nominate** screen which will include a submission form to take part in the open events.
+4. **Results** screen for each user subscribed events.
 
 ## **How is it built?**
 #### **For the mobile interface-**
