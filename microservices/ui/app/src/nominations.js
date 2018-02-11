@@ -55,17 +55,17 @@ export default class Nominations extends Component {
           this.state.data.nominationData.map((item,index)=>
             <Card style={Cardstyle} key={index}>
               <CardHeader
-                title={item.Username}
+                title={item.username}
               />
               <object 
                 style={{minHeight:"350px", width:"100%", margin:"auto"}} 
-                data={item.Submission} 
+                data={item.submission} 
                 aria-label=""
                 onMouseEnter ={this.handleOverlay}
                 onMouseLeave ={this.handleOverlay} />
               <div className="overlay">
-                <h3 style={{color:"white"}}>{item.Filename}</h3>
-                <h4 style={{color:"white"}}>{item.Description}</h4>
+                <h3 style={{color:"white"}}>{item.filename}</h3>
+                <h4 style={{color:"white"}}>{item.description}</h4>
               </div>
               <CardActions style={{marginLeft:"auto", paddingTop:"25px" ,marginRight:"auto",width:"50px"}} >
                 <FlatButton
@@ -75,9 +75,8 @@ export default class Nominations extends Component {
                       fingerprint
                     </i>
                   }
-                  data-voteid={"choice="+item.Username+"&event="+this.state.title} 
                   label={this.state.voteLabel} 
-                  onClick = {()=>this.handleVote(item.Username)}
+                  onClick = {()=>this.handleVote(item.username)}
                   disabled = {this.state.voteBool} />
               </CardActions>
             </Card>

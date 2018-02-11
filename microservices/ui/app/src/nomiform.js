@@ -159,10 +159,10 @@ export default class NominationForm extends React.Component {
         let Filename = this.state.Filename;
         let Description = this.state.Description;
         let body = {
-            "Event":Event,
-            "Filename":Filename,
-            "Description":Description,
-            "Submission":submission
+            "event":Event,
+            "filename":Filename,
+            "description":Description,
+            "submission":submission
         }
         axios.post(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/nominate`,body).then((result)=>{
             this.setState({form_disp:"none",finishedDisp:"block"});
