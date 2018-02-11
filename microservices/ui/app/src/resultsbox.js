@@ -58,20 +58,20 @@ class ResBox extends Component {
         <div className="CardWrapper" style={{width:'400px',margin:"auto"}}>
             <Card style={Cardstyle}>
             <CardHeader
-                title={this.props.data.Winner.Username}
+                title={this.props.data.winner.username}
             />
             <object 
               style={{minHeight:"350px", width:"100%", margin:"auto"}} 
-              data={this.props.data.Winner.Submission} 
+              data={this.props.data.winner.submission} 
               aria-label=""
               onMouseEnter ={this.handleOverlay}
               onMouseLeave ={this.handleOverlay}/>
             <div className="overlay">
-              <h3 style={{color:"rgba(255,255,255,0.65)"}}>{this.props.data.Winner.Filename}</h3>
-              <h4 style={{color:"rgba(255,255,255,0.65)"}}>{this.props.data.Winner.Description}</h4>
+              <h3 style={{color:"rgba(255,255,255,0.65)"}}>{this.props.data.winner.filename}</h3>
+              <h4 style={{color:"rgba(255,255,255,0.65)"}}>{this.props.data.winner.description}</h4>
             </div>
             <CardText style={{paddingTop:"25px"}}>
-                Votes: {this.props.data.Winner.Votes}
+                Votes: {this.props.data.winner.votes}
             </CardText>
             </Card>
             <div className="ConditionalWrap" 
@@ -91,7 +91,7 @@ class ResBox extends Component {
                 }
               }
             >
-                Your votes: {this.props.data.User.Votes}
+                Your votes: {this.props.data.user.votes}
             </span>
             </div>
         </div>
@@ -143,12 +143,12 @@ export default class ResultsBox extends Component {
   generator = (eventObj) => {
     let messArr = ["Oops! You lost this election.","Congratulations! You won this election!"]
     let styleArr = [bannerStyleLost,bannerStyleWon]
-    let handler = eventObj["Details"]
-    handler["User"]["Username"] = "You"
+    let handler = eventObj["details"]
+    handler["user"]["username"] = "You"
     if (eventObj.Details.Winner.Votes <= eventObj.Details.User.Votes)
     {
       handler["message"] = messArr[1]
-      handler["Winner"] = handler["User"]
+      handler["winner"] = handler["user"]
       handler["youDisp"] = "none"
       handler["bannerStyle"] = styleArr[1]
     }
@@ -157,7 +157,7 @@ export default class ResultsBox extends Component {
       handler["bannerStyle"] = styleArr[0]
     }
     let product = {
-      title:eventObj["Event"],
+      title:eventObj["event"],
       data:handler
     }
     return product
