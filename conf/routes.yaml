@@ -10,7 +10,7 @@
 # Syntax
 # ------
 # The configuration syntax is fairly simple. It is a simple map, where the keys
-# are subdomains, while the values are the corsesponding subdomain configuration
+# are subdomains, while the values are the corresponding subdomain configuration
 #
 # So, the structure of this file looks like this:
 #
@@ -18,7 +18,7 @@
 # subdomain2: subdomain2 configuration
 # .
 # .
-# subdomainn: subdomainn configuration
+# subdomain: subdomain configuration
 #
 # > Subdomain's Configuration
 #   -----------------------
@@ -34,7 +34,7 @@
 #     location2: location configuration
 #     .
 #     .
-#     locationn: location configuration
+#     location: location configuration
 #
 #   A location/path is the part of the url after the domain. For example:
 #   In https://data.hello99.hasura-app.io/v1/query, /v1/query is the path
@@ -64,7 +64,7 @@
 #         namespace: {{ cluster.metadata.namespaces.user }}
 #       upstreamServicePath: /
 #       upstreamServicePort: 80
-#     /recommed:
+#     /recommend:
 #       upstreamService:
 #         name: recommend
 #         namespace: {{ cluster.metadata.namespaces.user }}
@@ -101,7 +101,7 @@
 #   - upstreamServicePath:
 #       The path to which the request has to be forwarded
 #   - enableAuth:
-#       This enables the session middlaware on the gateway to  intercept the
+#       This enables the session middleware on the gateway to  intercept the
 #       request and resolve the user's session based on Authorization header
 #       or the Cookie
 #   - restrictToRoles:
@@ -172,9 +172,6 @@ ui:
       namespace: '{{ cluster.metadata.namespaces.user }}'
     upstreamServicePath: /
     upstreamServicePort: 80
-    authorizationPolicy:
-        restrictToRoles: ["user"]
-        noSessionRedirectUrl: https://auth.{{ cluster.name }}.hasura-app.io/ui
 api:
   /:
     corsPolicy: allow_all
