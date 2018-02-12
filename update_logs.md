@@ -137,3 +137,26 @@ updated readme again for deployment via hasura cli.
 ```md
 1. Refined readme, gifs, added a video to the hub.
 ```
+
+*February 13*
+
+**ashwani**
+```md
+1. Created dummy endpoints
+2. Created view function signatures, backend API now powers front-end with dummy data
+```
+
+
+**grk:**
+```md
+1. Deleted electon-native submodule in the cluster.
+2. Added project code directly in a folder in the cluster, react-native-app
+```
+
+**Hyper**:
+```md
+1. Implemented login form.
+2. Added custom authentication.
+3. Modified API calls to include  user_id (hasura_id).
+4. Cleaned up typos in conf files.
+```
