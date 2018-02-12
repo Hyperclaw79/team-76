@@ -1,8 +1,8 @@
 # Configuration for the postgres service
 #
-# Databse username and password are resolved from the secrets on the cluster
+# Database username and password are resolved from the secrets on the cluster
 #
-# Note that these values are read only on initilisation and modifying
+# Note that these values are read only on initialization and modifying
 # them in `hasura secrets` will not change them on postgres
 #
 # Volume is the Kubernetes volume object where the database is stored
