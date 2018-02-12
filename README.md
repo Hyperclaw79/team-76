@@ -27,7 +27,7 @@ We will have a 4 screen plan:
 ## **Deployment instructions**
 ### **Basic deployment:**
 Firstly get the application by running the command
-`$ hasura quickstart hyper/electon`
+`$ hasura quickstart devs76/electon`
 The `hasura quickstart` command clones the project repository to your local computer, and also creates a *free Hasura cluster*, where the application will be hosted for free.
 A git remote (called hasura) is created and initialized with your application directory.
 Then run the following commands-
