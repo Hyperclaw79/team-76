@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ElectonBox from './electonbox';
+import AuthForm from './authform';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
 
@@ -18,12 +19,22 @@ const bannerStyle = {
 }
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {core_disp:"none",user:0}
+  }
+  
+  handle_disp=(hasura_id)=>{
+    this.setState({core_disp:"flex", user_id:hasura_id})
+  }
+  
   render() {
     return (
       <MuiThemeProvider>
       <div style={Styleapp} className="App">
           <Paper zDepth={4} style = {bannerStyle} ><b>Electon</b></Paper>
-          <ElectonBox />
+          <AuthForm ref="authForm" handler={this.handle_disp} />
+          <ElectonBox disp={this.state.core_disp} user_id={this.state.user_id}/>
       </div>
     </MuiThemeProvider>
     );

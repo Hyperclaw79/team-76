@@ -11,7 +11,9 @@ export default class ProfileBox extends Component {
     }
   }
   componentDidMount(){
-    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/users`).then((result)=>{
+    let clusterName = process.env.REACT_APP_CLUSTER_NAME
+    let url = `https://api.${clusterName}.hasura-app.io/users?user=${this.props.user_id}`
+    axios.get(url).then((result)=>{
       this.setState({userData:result.data.data})
     })
   }
