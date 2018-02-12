@@ -28,19 +28,19 @@ export default class EventBox extends Component {
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>check_circle</FontIcon>}
             label="Vote!">
-             <VoteBox />  
+             <VoteBox user_id={this.props.user_id} />  
           </Tab>  
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>face</FontIcon>}
             label="Nominate!">
-              <NominationForm />    
+              <NominationForm user_id={this.props.user_id} />    
           </Tab>  
           <Tab
             style={{backgroundColor:"#00c3ff"}}
             icon={<FontIcon className="material-icons" style={iconStyles}>grade</FontIcon>}
             label="Results!">
-          <ResultsBox />
+          <ResultsBox user_id={this.props.user_id} />
           </Tab>  
         </Tabs>
         <FontIcon className="material-icons" style={iconStyles}></FontIcon>

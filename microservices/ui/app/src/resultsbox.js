@@ -136,7 +136,9 @@ export default class ResultsBox extends Component {
       }
   }
   componentDidMount(){
-    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/results`).then((result)=>{
+    let clusterName = process.env.REACT_APP_CLUSTER_NAME
+    let url = `https://api.${clusterName}.hasura-app.io/results?user_id=${this.props.user_id}`
+    axios.get(url).then((result)=>{
       this.setState({results:result.data.data.map((res)=>this.generator(res))})
     })
   }

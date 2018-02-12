@@ -36,7 +36,8 @@ export default class Nominations extends Component {
     handleVote(voteFor) {
       let body = {
         username: voteFor,
-        event: this.state.data.eventName
+        event: this.state.data.eventName,
+        user_id: this.props.user_id
       }
       axios.post(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/vote`,body).then((result)=>{
         this.setState({voteLabel:"Done",voteColor:"green",voteBool:true})
