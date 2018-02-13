@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DropzoneComponent from 'react-dropzone-component';
 import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
 import axios from 'axios';
+import Media from 'react-media';
 
 class Droppy extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class Droppy extends React.Component {
 
         return (
             <div className="FinWrapper" style={{display:this.state.finDisp}}>
-                <div id="fin" style={{display:this.state.display,width:"380px",margin:"auto"}}>
+                <div id="fin" style={{display:this.state.display,width:this.props.droppy_width,margin:"auto"}}>
                     <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig}>
                         <div className="dz-message">Upload your submission here.</div>
                     </DropzoneComponent>
@@ -55,7 +56,7 @@ class Droppy extends React.Component {
                 <object 
                     ref="object_placeholder" 
                     data={this.state.uri} 
-                    style={{display:this.state.obj_disp,width:"380px",marginLeft:"20px",minHeight:"400px"}} 
+                    style={{display:this.state.obj_disp,width:this.props.droppy_width,marginLeft:"20px",minHeight:this.props.droppy_height}} 
                     align="center" 
                     form="Formy"
                     aria-label="obj-placeholder"/>
@@ -132,7 +133,8 @@ class DropDown extends React.Component {
     }
   }
 
-export default class NominationForm extends React.Component {
+
+class ResponsiveNominationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -147,12 +149,12 @@ export default class NominationForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-      handleChange(event) {
+    handleChange(event) {
         let param = event.target.placeholder   
         this.setState({[param] : event.target.value});
-      }
-    
-      handleSubmit(event) {
+        }
+
+    handleSubmit(event) {
         event.preventDefault();
         let submission = this.refs.droppy.state.uri;
         let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1].title;
@@ -168,29 +170,82 @@ export default class NominationForm extends React.Component {
         axios.post(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/nominate`,body).then((result)=>{
             this.setState({form_disp:"none",finishedDisp:"block"});
         })
-      }
-    
-      render() {
+    }
+
+    render() {
         return (
-           <Paper zDepth={3} className="FormWrapper">    
+            <Paper zDepth={3} 
+                className="FormWrapper" 
+                style={{
+                    width:this.props.container_width,
+                    height:this.props.container_height
+                }}
+            >    
             <form className="Formy" id="Formy" onSubmit={this.handleSubmit} style={{display:this.state.form_disp}}>
                 <h1>Nominate yourself.</h1>
                 <DropDown ref="choicy" eventList={this.state.eventList} />
-                <input placeholder="Filename" type="text" value={this.state.Filename} required onChange={this.handleChange} />
-                <input placeholder="Description" type="text" value={this.state.Description} required onChange={this.handleChange} />
-                <Droppy ref="droppy" />
+                <input 
+                    placeholder="Filename" 
+                    type="text" 
+                    value={this.state.Filename} 
+                    required 
+                    onChange={this.handleChange} 
+                    style={{width:this.props.fullWidth?"100%":"auto"}}
+                />
+                <input 
+                    placeholder="Description" 
+                    type="text" 
+                    value={this.state.Description} 
+                    required 
+                    onChange={this.handleChange} 
+                    style={{width:this.props.fullWidth?"100%":"auto"}}
+                />
+                <Droppy ref="droppy" droppy_width={this.props.droppy_width} droppy_height={this.props.droppy_height}/>
                 <button>Send</button>
             </form>
             <Paper zDepth={1} className="DoneNominating" 
                 style={{
                         display:this.state.finishedDisp,
                         marginTop:"25px",padding:"25px",
-                        width:"550px", marginLeft: "-75px"
+                        width:this.props.succes_width, marginLeft: "-75px"
                     }}>
                 <span><b>Successfully Nominated yourself!</b></span>
-                <img style={{width:"500px",height:"500px"}} src="success.gif" alt="success"/>
+                <img style={{width:this.props.succes_width,height:this.props.succes_height}} src="success.gif" alt="success"/>
             </Paper>     
-           </Paper>
+            </Paper>
         );
-      }
+    }
+}
+
+export default class NominationForm extends Component{
+    render(){
+        return(
+            <Media query="(max-width: 1253px)">
+                {matches =>
+                matches ? (
+                <ResponsiveNominationForm 
+                    user_id={this.props.user_id}
+                    container_width={(0.85*parseInt(window.innerWidth,10)).toString()+'px'}
+                    container_height={(0.75*parseInt(window.innerHeight,10)).toString()+'px'}
+                    succes_width={(0.75*parseInt(window.innerWidth,10)).toString()+'px'}
+                    succes_height={(0.5*parseInt(window.innerHeight,10)).toString()+'px'}
+                    droppy_width={(0.72*parseInt(window.innerWidth,10)).toString()+'px'}
+                    droppy_height={(0.35*parseInt(window.innerHeight,10)).toString()+'px'}
+                    fullWidth={true}
+                    />
+                    ) : (
+                <ResponsiveNominationForm 
+                    user_id={this.props.user_id}
+                    container_width="max-content"
+                    container_height="auto" 
+                    succes_width="500px"
+                    succes_height="500px"  
+                    droppy_width="380px"
+                    droppy_height="400px"  
+                    />
+                    )
+                }
+            </Media>
+        )
+    }
 }

@@ -2,14 +2,8 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import axios from 'axios';
+import Media from 'react-media';
 
-
-const Cardstyle = 
-  {
-    backgroundColor: '#e3f2fd',
-    marginTop:'10px',
-    width:'400px'
-  }
 
 const bannerStyleResults = {
   backgroundColor:"#80CBC4",
@@ -55,13 +49,19 @@ class ResBox extends Component {
   render(){
     return(
       <div className="ResBoxWrapper">
-        <div className="CardWrapper" style={{width:'400px',margin:"auto"}}>
-            <Card style={Cardstyle}>
+        <div className="CardWrapper" style={{width:"80%",margin:"auto"}}>
+            <Card style={{
+              backgroundColor: '#e3f2fd', 
+              marginTop:'10px', 
+              width:this.props.cardWidth, 
+              marginLeft:"auto",
+              marginRight:"auto"
+            }}>
             <CardHeader
                 title={this.props.data.winner.username}
             />
             <object 
-              style={{minHeight:"350px", width:"100%", margin:"auto"}} 
+              style={{minHeight:this.props.minHt, width:"100%", margin:"auto"}} 
               data={this.props.data.winner.submission} 
               aria-label=""
               onMouseEnter ={this.handleOverlay}
@@ -71,29 +71,16 @@ class ResBox extends Component {
               <h4 style={{color:"rgba(255,255,255,0.65)"}}>{this.props.data.winner.description}</h4>
             </div>
             <CardText style={{paddingTop:"25px"}}>
-                Votes: {this.props.data.winner.votes}
+                {
+                  <span>
+                    Votes: {this.props.data.winner.votes}
+                    <span style={{display:"block"}}>
+                      {this.props.data.youDisp?"":"Your votes:" + this.props.data.user.votes}
+                    </span>  
+                  </span>
+                }
             </CardText>
             </Card>
-            <div className="ConditionalWrap" 
-              style={
-                {
-                  display:this.props.data.youDisp,
-                  marginTop:"-20px",marginLeft:"15px"
-                }
-              }
-            >
-            <span 
-              style={
-                {
-                  backgroundColor: "rgb(227, 242, 253)", 
-                  fontFamily: "Roboto, sans-serif", 
-                  width: "250px"
-                }
-              }
-            >
-                Your votes: {this.props.data.user.votes}
-            </span>
-            </div>
         </div>
         <Paper zDepth={2} style = {this.props.data.bannerStyle} ><b>{this.props.data.message}</b></Paper>
       </div>
@@ -106,7 +93,7 @@ class Cards extends Component {
     return(
       <Card style={
         {
-          width:"99%", 
+          width:"90%", 
           margin:"auto", 
           marginTop: "10px",
           backgroundColor:"rgba(5, 29, 76, 0.86)"
@@ -119,7 +106,7 @@ class Cards extends Component {
           showExpandableButton={true}
         />
         <CardMedia expandable={true}>
-          <ResBox data={this.props.data}/>
+          <ResBox data={this.props.data} />
         </CardMedia>
       </Card>
     );
@@ -127,10 +114,9 @@ class Cards extends Component {
 }
 
 
-
-export default class ResultsBox extends Component {
-  constructor(){
-      super();
+class ResponsiveResultsBox extends Component {
+  constructor(props){
+      super(props);
       this.state = {
         results:[]
       }
@@ -151,7 +137,7 @@ export default class ResultsBox extends Component {
     {
       handler["message"] = messArr[1]
       handler["winner"] = handler["user"]
-      handler["youDisp"] = "none"
+      handler["youDisp"] = false
       handler["bannerStyle"] = styleArr[1]
     }
     else {
@@ -170,10 +156,30 @@ export default class ResultsBox extends Component {
         <Paper zDepth={4} style = {bannerStyleResults} ><b>Results</b></Paper>
         {
           this.state.results.map((item, index)=>
-            <Cards key={index} title={item.title} data={item.data}/>
+            <Cards key={index} title={item.title} user_id={this.props.user_id} data={item.data} />
           )
         } 
       </div>
+    );
+  }
+}
+
+export default class ResultsBox extends Component {
+  render(){
+    return(
+      <Media query="(max-width: 1253px)">
+                {matches =>
+                matches ? (
+                <ResponsiveResultsBox
+                    user_id={this.props.user_id}
+                    cardWidth={(0.65*parseInt(window.innerWidth,10)).toString()+'px'}
+                    minHt={(0.25*parseInt(window.innerHeight,10)).toString()+'px'}
+                    />
+                    ) : (
+                <ResponsiveResultsBox user_id={this.props.user_id} />
+                    )
+                }
+            </Media>
     );
   }
 }

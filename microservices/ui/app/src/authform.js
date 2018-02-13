@@ -6,9 +6,35 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import Lock from 'material-ui/svg-icons/action/lock';
 import LockOpen from 'material-ui/svg-icons/action/lock-open';
+import Media from "react-media";
 
+export default class AuthForm extends React.Component{
+    render() {
+        return(
+            <Media query="(max-width: 1199px)">
+                {matches =>
+                    matches ? (
+                    <ResponsiveAuthForm 
+                        handler={this.props.handler} 
+                        width="95vw" 
+                        emojiFix="-50px" 
+                        heightFix="70px" 
+                    />
+                    ) : (
+                    <ResponsiveAuthForm 
+                        handler={this.props.handler} 
+                        width="25%" 
+                        emojiFix="-70px"
+                        heightFix= "30vh"
+                    />
+                    )
+                }
+            </Media>
+        );
+    }
+}
 
-export default class AuthForm extends React.Component {
+class ResponsiveAuthForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -73,7 +99,16 @@ export default class AuthForm extends React.Component {
 
     render() {
         return (
-            <Paper style={{width:"25%",margin:"auto",display:this.state.display}} zDepth={3} className="LoginFormWrapper">    
+            <Paper 
+                style={{
+                    width:this.props.width,
+                    margin:"auto",
+                    marginTop:this.props.heightFix,
+                    display:this.state.display
+                }} 
+                zDepth={3} 
+                className="LoginFormWrapper"
+            >    
             <Paper 
                 style={{backgroundColor:"rgb(88, 160, 255)", height:"50px", paddingTop:"15px"}}
                 zDepth={3}
@@ -100,23 +135,28 @@ export default class AuthForm extends React.Component {
                     ref="passwordBox"
                     floatingLabelText="Password"
                     type="password"
-                    autoComplete="off"
                     style={{width:"90%"}}
                     required
                 /><br />
                 <Checkbox
                     ref="authLock"
                     style = {{marginLeft:"10px", marginTop:'45px'}}
-                    checkedIcon={<Lock style={{marginLeft:"-10px"}} />}
-                    uncheckedIcon={<LockOpen style={{marginLeft:"-10px"}} />}
-                    label="Keep me locked in."
-                    labelStyle={{marginLeft:"-50px"}}
+                    checkedIcon={<Lock />}
+                    uncheckedIcon={<LockOpen />}
+                    iconStyle={{marginLeft:"0.2vw"}}
+                    label={
+                        <span>
+                            Keep me locked in.
+                            <span style={{fontSize:"10px",display:"block"}}>
+                                (Excuse the cheesy pun. 
+                                <span role="img" aria-label="">😅</span>)
+                            </span>
+                        </span>    
+                    }
+                    labelStyle={{textAlign:"left"}}
                 />
-                <span style={{fontSize:"10px", marginLeft:"-50px"}}>
-                    (Excuse the cheesy pun. 
-                    <span role="img" aria-label="">😅</span>)
-                </span>
-                <span style={{display:"block", marginTop:"45px", marginLeft:"-70px"}}>
+                
+                <span style={{display:"block", marginTop:"45px", marginLeft:this.props.emoji_fix}}>
                     <span 
                         role="img" 
                         aria-label="" 

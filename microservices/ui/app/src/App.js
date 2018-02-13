@@ -4,9 +4,6 @@ import AuthForm from './authform';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
 
-const Styleapp = {
-  width: '100%'
-}
 const bannerStyle = {
   backgroundColor:"white",
   height:"50px",
@@ -18,10 +15,10 @@ const bannerStyle = {
   textAlign: "center"
 }
 
-class App extends Component {
+export default class App extends Component {
   constructor(){
     super();
-    this.state = {core_disp:"none",user:0}
+    this.state = {core_disp:"none",user_id:0}
   }
   
   handle_disp=(hasura_id)=>{
@@ -31,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-      <div style={Styleapp} className="App">
+      <div style={{width:this.props.width}} className="App">
           <Paper zDepth={4} style = {bannerStyle} ><b>Electon</b></Paper>
           <AuthForm ref="authForm" handler={this.handle_disp} />
           <ElectonBox disp={this.state.core_disp} user_id={this.state.user_id}/>
@@ -41,4 +38,3 @@ class App extends Component {
   }
 }
 
-export default App;

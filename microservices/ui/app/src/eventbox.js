@@ -5,24 +5,49 @@ import NominationForm from './nomiform';
 import VoteBox from './votebox';
 import Paper from 'material-ui/Paper'
 import ResultsBox from './resultsbox'
+import Media from 'react-media';
 
 const iconStyles = {
   marginRight: 500,
   padding: 10
 };
 
+export default class EventBox extends React.Component{
+  render() {
+      return(
+          <Media query="(max-width: 1253px)">
+              {matches =>
+                  matches ? (
+                  <ResponsiveEventBox 
+                    user_id={this.props.user_id}
+                    style={{
+                      backgroundColor: '#262df5',
+                      width:"90vw",
+                      minHeight:"80vh",
+                      position:"fixed",
+                      margin:"30px auto"
+                    }}
+                  />
+                  ) : (
+                  <ResponsiveEventBox 
+                    user_id={this.props.user_id} 
+                    style={{
+                      backgroundColor: '#262df5',
+                      width:"65%",
+                      marginRight:"70px"
+                    }}
+                  />
+                  )
+              }
+          </Media>
+      );
+  }
+}
 
-export default class EventBox extends Component {
+class ResponsiveEventBox extends Component {
   render() {
     return (
-      <Paper zDepth={3} 
-        style={
-          {
-            backgroundColor: '#262df5',
-            width:"65%",marginRight:"70px",
-          }
-        }
-      >
+      <Paper zDepth={3} style={this.props.style} >
         <Tabs>
           <Tab
             style={{backgroundColor:"#00c3ff"}}

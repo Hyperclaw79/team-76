@@ -2,26 +2,74 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Media from 'react-media';
 
-const Cardstyle = 
+
+const stylesOriginal = 
+{
+  container:{
+    backgroundColor: 'rgba(5, 29, 76, 0.86)',
+    display: 'flex',
+    flexWrap: 'wrap',
+    WebkitFlexFlow: 'row wrap',
+    justifyContent: 'flex-start'
+  },
+  Card: 
   {
     backgroundColor: '#e3f2fd',
-    marginLeft:"50px",
     marginTop:'10px',
-    width:'250px',
+    width:"250px",
+    marginLeft: "auto",
+    marginRight: 'auto'
   }
+}
 
-const styles = 
+const stylesResponsive = 
+{
+  container:{
+    backgroundColor: 'rgba(5, 29, 76, 0.86)',
+    display: 'flex',
+    flexWrap: 'wrap',
+    WebkitFlexFlow: 'row wrap',
+    justifyContent: 'flex-start'
+  },
+  Card: 
   {
-    div:{
-      backgroundColor: 'rgba(5, 29, 76, 0.86)',
-      display: 'inline-flex',
-      flexWrap: 'wrap',
-      paddingLeft: '100px'
-    }
+    backgroundColor: '#e3f2fd',
+    marginTop:'10px',
+    width:"250px",
+    marginLeft: "auto",
+    marginRight: 'auto'
   }
+}
 
-export default class Nominations extends Component {
+export default class Nominations extends Component{
+  render(){
+    return(
+      <Media query="(max-width: 1253px)">
+        {matches =>
+            matches ? (
+            <ResponsiveNominations 
+              data = {this.props.data}
+              user_id = {this.props.data} 
+              style={stylesResponsive.container}
+              cardStyle={stylesResponsive.Card}
+            />
+            ) : (
+            <ResponsiveNominations 
+              data = {this.props.data}
+              user_id = {this.props.data} 
+              style={stylesOriginal.container}
+              cardStyle={stylesOriginal.Card}
+            />
+            )
+        }
+      </Media>
+    );
+  }
+}
+
+class ResponsiveNominations extends Component {
 
   constructor(props) {
       super(props);
@@ -51,15 +99,15 @@ export default class Nominations extends Component {
 
   render() {
     return (
-      <div className="NominationFelxbox" style={styles.div}>
+      <div className="NominationFelxbox" style={this.props.style}>
         {
           this.state.data.nominationData.map((item,index)=>
-            <Card style={Cardstyle} key={index}>
+            <Card style={this.props.cardStyle} key={index}>
               <CardHeader
                 title={item.username}
               />
               <object 
-                style={{minHeight:"350px", width:"100%", margin:"auto"}} 
+                style={{minHeight:"250px", width:"100%", margin:"auto"}} 
                 data={item.submission} 
                 aria-label=""
                 onMouseEnter ={this.handleOverlay}
