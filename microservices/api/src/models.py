@@ -33,7 +33,7 @@ class Nomination(db.Model):
     '''Stores all the nominations for various events'''
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    event_id = Db.Column(db.Integer, db.ForeignKey('event.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
     username = db.Column(db.String, db.ForeignKey('user.username'), nullable=False)
     filename = db.Column(db.String, nullable=False)
     desc = db.Column(db.String, server_default='No description')
