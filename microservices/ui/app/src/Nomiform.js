@@ -48,7 +48,15 @@ class Droppy extends React.Component {
 
         return (
             <div className="FinWrapper" style={{display:this.state.finDisp}}>
-                <div id="fin" style={{display:this.state.display,width:this.props.droppy_width,margin:"auto"}}>
+                <div 
+                    id="fin" 
+                    style={{
+                        display:this.state.display,
+                        width:this.props.droppy_width,
+                        margin:"auto",
+                        maxWidth:"100%"
+                    }}
+                >
                     <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig}>
                         <div className="dz-message">Upload your submission here.</div>
                     </DropzoneComponent>
@@ -141,7 +149,7 @@ class ResponsiveNominationForm extends React.Component {
             Event: '',
             Filename: '',
             Description: '',
-            form_disp: "block",
+            form_disp: "flex",
             finishedDisp: "none",
         };
     
@@ -178,10 +186,20 @@ class ResponsiveNominationForm extends React.Component {
                 className="FormWrapper" 
                 style={{
                     width:this.props.container_width,
-                    height:this.props.container_height
+                    maxWidth: "100%",
+                    height:this.props.container_height,
+                    maxHeight: "100%",
+                    marginTop: "25px"
                 }}
             >    
-            <form className="Formy" id="Formy" onSubmit={this.handleSubmit} style={{display:this.state.form_disp}}>
+            <form 
+                className="Formy" 
+                id="Formy" 
+                onSubmit={this.handleSubmit} 
+                style={{
+                    display:this.state.form_disp,
+                    flexDirection: "column",
+                    }}>
                 <h1>Nominate yourself.</h1>
                 <DropDown ref="choicy" eventList={this.state.eventList} />
                 <input 
@@ -190,7 +208,7 @@ class ResponsiveNominationForm extends React.Component {
                     value={this.state.Filename} 
                     required 
                     onChange={this.handleChange} 
-                    style={{width:this.props.fullWidth?"100%":"auto"}}
+                    style={{width:this.props.fullWidth?"90%":"auto"}}
                 />
                 <input 
                     placeholder="Description" 
@@ -198,7 +216,7 @@ class ResponsiveNominationForm extends React.Component {
                     value={this.state.Description} 
                     required 
                     onChange={this.handleChange} 
-                    style={{width:this.props.fullWidth?"100%":"auto"}}
+                    style={{width:this.props.fullWidth?"90%":"auto"}}
                 />
                 <Droppy ref="droppy" droppy_width={this.props.droppy_width} droppy_height={this.props.droppy_height}/>
                 <button>Send</button>

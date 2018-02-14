@@ -12,7 +12,7 @@ class ElectonBox extends Component {
   handleToggle = () => this.setState({open: !this.state.open});
   render() {
     return (
-      <div style={{display:this.props.disp, flexWrap:"wrap", paddingLeft:"25px"}}>
+      <div style={{display:this.props.disp, flexWrap:"wrap"}}>
         <EventBox user_id={this.props.user_id} />
         <Media query="(max-width: 1253px)" user_id={this.props.user_id}>
           { matches =>

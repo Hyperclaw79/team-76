@@ -24,8 +24,8 @@ export default class EventBox extends React.Component{
                       backgroundColor: '#262df5',
                       width:"90vw",
                       minHeight:"80vh",
-                      position:"fixed",
-                      margin:"30px auto"
+                      margin:"30px auto auto 25px",
+                      overflowX: "hidden"
                     }}
                   />
                   ) : (
@@ -34,7 +34,8 @@ export default class EventBox extends React.Component{
                     style={{
                       backgroundColor: '#262df5',
                       width:"65%",
-                      marginRight:"70px"
+                      marginRight:"70px",
+                      marginLeft:"25px"
                     }}
                   />
                   )

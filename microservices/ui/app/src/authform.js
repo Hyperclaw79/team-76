@@ -25,7 +25,7 @@ export default class AuthForm extends React.Component{
                         handler={this.props.handler} 
                         width="25%" 
                         emojiFix="-70px"
-                        heightFix= "30vh"
+                        heightFix= "100px"
                     />
                     )
                 }
