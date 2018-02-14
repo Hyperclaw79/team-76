@@ -38,3 +38,7 @@ class Nomination(db.Model):
     filename = db.Column(db.String, nullable=False)
     desc = db.Column(db.String, server_default='No description')
     file_id = db.Column(db.String, nullable=False)
+
+
+db.create_all()
+db.session.commit()
