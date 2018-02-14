@@ -160,3 +160,28 @@ updated readme again for deployment via hasura cli.
 3. Modified API calls to include  user_id (hasura_id).
 4. Cleaned up typos in conf files.
 ```
+*February 14*
+
+**Hyper**:
+```md
+1. Web app is now responsive! Will look good on smaller devices too.
+2. Adjusted a few props.
+3. Modified styling for a few components.
+```
+
+
+**ashwani**
+```md
+1. Designed schema for tables
+2. Setup data models within application
+3. Setup the database in the cluster for use
+```
+*February 15*
+
+**Hyper**:
+```md
+1. Fixed scroll bug on responsive design.
+2. Restyled Nomination Form to Flexbox design.
+3. Minor CSS Tweaks.
+4. Removed Chrome's annoying autofill yellow curse.
+```
