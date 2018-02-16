@@ -20,7 +20,7 @@ export default class ProfileBox extends Component {
   logout = () => {
     let clusterName = process.env.REACT_APP_CLUSTER_NAME
     let url = `https://auth.${clusterName}.hasura-app.io/v1/user/logout`
-    axios.get(url).then((result)=>{
+    axios.post(url,{},{headers:{"Content-Type":"application/json"},withCredentials: true}).then((result)=>{
       window.location.reload();
     })
   }
