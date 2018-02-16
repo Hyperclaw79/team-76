@@ -17,9 +17,24 @@ export default class ProfileBox extends Component {
       this.setState({userData:result.data.data})
     })
   }
+  logout = () => {
+    let clusterName = process.env.REACT_APP_CLUSTER_NAME
+    let url = `https://auth.${clusterName}.hasura-app.io/v1/user/logout`
+    axios.get(url).then((result)=>{
+      window.location.reload();
+    })
+  }
   render() {
     return (
-      <Paper className="ProfileBoxWrapper" style={{backgroundColor:'#262df5',width:"360px", height:"500px"}}>
+      <Paper className="ProfileBoxWrapper" 
+        style={{
+          backgroundColor:'#262df5',
+          width:"360px",
+          height:"fit-content",
+          display:"flex",
+          flexDirection:"column"
+        }}
+      >
         <Paper style={{backgroundColor:'#00c3ff', height:"72px", paddingTop:"1px"}}>
           <h1 style={{color:"white"}}>Profile</h1>
         </Paper>
@@ -38,9 +53,19 @@ export default class ProfileBox extends Component {
         <Card style={{marginTop:"10px"}}>
           <CardText style={{padding:"0px", paddingTop:"5px"}}>{"Totally won "+this.state.userData.score+" events"}</CardText>
         </Card>
-        <Card style={{marginTop:"10px", marginBottom:"10px"}}>
+        <Card style={{marginTop:"10px"}}>
           <CardText style={{padding:"0px", paddingTop:"5px"}}>Last Participated in:<b style={{marginLeft:"10px"}}>{this.state.userData.latest}</b></CardText>
         </Card>
+        <button 
+          className="Logout" 
+          style={{
+            marginTop:"10px",
+            marginBottom:"10px"
+          }}
+          onClick = {this.logout}
+        >
+          Logout!
+        </button>
       </Paper>
     );
   }
