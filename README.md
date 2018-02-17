@@ -54,11 +54,12 @@ Add and commit the changes, and perform `git push hasura master` to deploy the c
 
 ## **Resources/Documentation used:**
 - [Hasura Docs](https://docs.hasura.io/0.15/manual/getting-started/index.html)
+- [NPM docs](https://docs.npmjs.com/)
 - [ReactJS Docs](https://reactjs.org/docs/hello-world.html)
+- [Create-React-App](https://github.com/facebookincubator/create-react-app)
 - [ReactNative Docs](https://facebook.github.io/react-native/docs/getting-started.html)
 - [Flask Docs](http://flask.pocoo.org/docs/0.12/)
-- [NPM docs](https://docs.npmjs.com/)
 - [tcomb-form-native](https://github.com/gcanti/tcomb-form-native/tree/master/lib)
 - [Material-UI](http://www.material-ui.com/#/get-started/required-knowledge)
 - [React-Dropzone-Component]( https://github.com/felixrieseberg/React-Dropzone-Component)
-- [Create-React-App](https://github.com/facebookincubator/create-react-app)
+- [React-Media](https://github.com/ReactTraining/react-media)
