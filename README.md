@@ -39,15 +39,17 @@ Run the below command to open your shiny new deployed Electon app.
  -  `$ hasura microservice open ui`
   
 ### **Making changes and deploying:**
-To make changes to the project, edit the files in `src` folder according to your app.
+To make changes to the web-app, edit the files in `src` folder according to your app.
 Add and commit the changes, and perform `git push hasura master` to deploy the changes.
+
+The mobile-app can be found in the `react-native-app` directory. You can take it out into a separate directory and develop independently. Follow [this](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) guide for making a standalone app.
 
 ### **Local development:**
 - To test and make changes to this app locally, follow the below instructions.
 - Open Terminal and `cd` into the project folder
 - Run `npm install` to install all the project dependencies
-- Run `npm start` for the dev mode app which will automatically open in the browser. This mode supports hot module replacement and live reload.
-- Make changes to the app, and see the changes in the browser.
+- Run `npm start` for the dev mode app which will automatically open in the browser (web-app) or give you the QR code to scan using the [Expo Client](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en) (mobile-app). This mode supports hot module replacement and live reload.
+- Make changes to the app, and see the changes in the browser/client.
 - For a more production optimized app, execute `npm run build` in the terminal to build and serve it with a module like Serve.
  `npm i serve && serve -s build`
 
@@ -63,3 +65,14 @@ Add and commit the changes, and perform `git push hasura master` to deploy the c
 - [Material-UI](http://www.material-ui.com/#/get-started/required-knowledge)
 - [React-Dropzone-Component]( https://github.com/felixrieseberg/React-Dropzone-Component)
 - [React-Media](https://github.com/ReactTraining/react-media)
+
+## **Contributors:**
+#### React.js:
+- [Harshith Thota](https://github.com/Hyperclaw79)
+- [Sneha](https://github.com/itmesneha)
+#### React-Native:
+- [Ganesh Ramkumar](https://github.com/Science001)
+- [Hari Shankar](https://github.com/HariShankarNU)
+#### Python-Flask:
+- [Ashwani Gupta](https://github.com/ashwani99)
+- []()
