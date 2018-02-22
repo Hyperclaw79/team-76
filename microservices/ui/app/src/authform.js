@@ -84,7 +84,15 @@ class ResponsiveAuthForm extends React.Component {
                 "password": password
             }
         }
-        axios.post(`https://auth.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/v1/login`,body).then((result)=>{
+        axios.post(`https://auth.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/v1/login`,
+            body,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            }
+        ).then((result)=>{
             if(result.status === 200){
                 this.props.handler(result.data.hasura_id)
                 this.setState({
