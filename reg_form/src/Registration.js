@@ -67,7 +67,19 @@ class Registration extends React.Component {
                   />
                 </div>
               );
-      case 1:
+              case 1:
+                return (
+                        <div>
+                          Select a difficult password: <br/>
+                          Nobody should be able to guess this! <br/>
+                          <TextField
+                            floatingLabelText="Username"
+                            floatingLabelStyle={styles.floatingLabelStyle}
+                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                          />
+                       </div>
+                      );
+      case 2:
         return (
                 <div>
                   Select a unique username: (make this cool people will know you by this!)
@@ -78,7 +90,7 @@ class Registration extends React.Component {
                   />
                </div>
               );
-      case 2:
+      case 3:
           return (
                   <div>
                     This is Electon! You can be anything! <br />
@@ -108,6 +120,11 @@ class Registration extends React.Component {
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 0})}>
               Email
+            </StepButton>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 1})}>
+              Password
             </StepButton>
           </Step>
           <Step>
