@@ -41,7 +41,7 @@ class Registration extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state;
-    if (stepIndex < 2) {
+    if (stepIndex < 3) {
       this.setState({stepIndex: stepIndex + 1});
     }
   };
@@ -67,7 +67,19 @@ class Registration extends React.Component {
                   />
                 </div>
               );
-      case 1:
+              case 1:
+                return (
+                        <div>
+                          Select a difficult password: <br/>
+                          Nobody should be able to guess this! <br/>
+                          <TextField
+                            floatingLabelText="Password"
+                            floatingLabelStyle={styles.floatingLabelStyle}
+                            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                          />
+                       </div>
+                      );
+      case 2:
         return (
                 <div>
                   Select a unique username: (make this cool people will know you by this!)
@@ -78,7 +90,7 @@ class Registration extends React.Component {
                   />
                </div>
               );
-      case 2:
+      case 3:
           return (
                   <div>
                     This is Electon! You can be anything! <br />
@@ -112,11 +124,16 @@ class Registration extends React.Component {
           </Step>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 1})}>
-              Username
+              Password
             </StepButton>
           </Step>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 2})}>
+              Username
+            </StepButton>
+          </Step>
+          <Step>
+            <StepButton onClick={() => this.setState({stepIndex: 3})}>
               Avatar
             </StepButton>
           </Step>
@@ -134,21 +151,21 @@ class Registration extends React.Component {
             />
             <RaisedButton
               label="Next"
-              disabled={stepIndex === 2}
+              disabled={stepIndex === 3}
               primary={true}
               onClick={this.handleNext}
             />
+            <br/><br/>
+            <FlatButton
+              label="Submit"
+              backgroundColor="#95A5A6"
+              hoverColor="#7FB3D5"
+              disabled={stepIndex < 3}
+
+              style={{marginRight: 12}}
+            />
           </div>
         </div>
-        <br /><br />
-        <FlatButton
-          label="Submit"
-          backgroundColor="#95A5A6"
-          hoverColor="#7FB3D5"
-
-
-          style={{marginRight: 12}}
-        />
       </div>
     );
   }
