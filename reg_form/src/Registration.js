@@ -8,7 +8,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
-import Avatar_upload from './Avatar_upload';
 import Paper from 'material-ui/Paper';
 
 const bannerStyle = {
