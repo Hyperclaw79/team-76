@@ -1,20 +1,28 @@
 *January 27*
 
 **Hyper**:
-`Auth screen for web version.`
-
+```md
+1. Auth screen for web version.
+```
 
 **grk**:
-`Auth Screens for Mobile version.`
+```md
+1. Auth Screens for Mobile version.
+```
 
 *January 31*
 
 **sns**:
-``Documentation for ELECTON submitted.``
+```md
+1. Documentation for ELECTON submitted.
+```
 
 *February 02*
 
-**sns:**``Skeleton front-end for main page built with tab navigation.``
+**sns:**
+```md
+1. Skeleton front-end for main page built with tab navigation.
+```
 
 
 **Hyper**:
@@ -56,8 +64,8 @@
 
 **grk**:
 ```md
-VoteNowScreen Done.
-Chained it into navigation.
+1. VoteNowScreen Done.
+2. Chained it into navigation.
 ```
 
 **Hyper**:
@@ -72,10 +80,13 @@ Chained it into navigation.
 
 **grk:**
 ```md
-Done with the biggest part of linking Auth and Home screens.
+1. Done with the biggest part of linking Auth and Home screens.
 ```
 
-**sns:**``Made README.MD for Electon github repo.``
+**sns:**
+```md
+1. Made README.MD for Electon github repo.
+```
 
 *February 09*
 
@@ -117,14 +128,14 @@ Done with the biggest part of linking Auth and Home screens.
 
 **grk:** 
 ```md
-Removed hardcoded data and added network calls
+1. Removed hardcoded data and added network calls
 ```
 
 *February 12*
 
 **sns:**
 ```md
-updated readme again for deployment via hasura cli.
+1. updated readme again for deployment via hasura cli.
 ```
 
 **grk:**
@@ -184,4 +195,66 @@ updated readme again for deployment via hasura cli.
 2. Restyled Nomination Form to Flexbox design.
 3. Minor CSS Tweaks.
 4. Removed Chrome's annoying autofill yellow curse.
+```
+
+*February 16*
+
+**sns**:
+```md
+1. Made registration form for registering via email id.
+```
+
+
+**Hari**:
+```md
+1. Made registration form for the mobile app for users registering via email id.
+```
+
+**Hyper**:
+```md
+1. Converted ProfileBox into FlexBox.
+2. Added logout button.
+3. Added Logout API Call.
+```
+
+*February 17*
+
+**grk**:
+```md
+1. Added filesystem support to NominationTab
+2. Fixed one of the WebView bugs.
+3. KeyboardAvoidingView added at forms.
+```
+
+
+**Hyper**:
+```md
+1. Fixed logout bug.
+```
+*February 25*
+
+**grk:**
+```md
+1. Linked Auth, Home based on auth_token's presence
+2. Migrated to axios from fetch
+3. Error handling Auth now!
+```
+
+
+**sns:**
+```md
+1. Fixed registration page, added password and button disabling.
+```
+*February 26*
+
+**Hyper**:
+```md
+1. Modified and Added Registeration Form to AuthForm.
+2. Added Dropzone to Reg Form.
+3. Added toggle between login and reg.
+4. Added dynamic functionality to reg form.
+5. Modified Droppy component to take callbacks as props.
+6. Added Register api call for ref form.
+7. Fixed autofill attributes.
+8. Isolated Droppy component.
 ```

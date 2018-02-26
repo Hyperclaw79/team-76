@@ -148,7 +148,7 @@
     margin-right: 10px;
   }
 
-.LoginFormy  button {
+.LoginFormy  button, .RegisterSubmit {
     font-family: 'roboto', sans-serif;
     -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.64, 0.09, 0.08, 1), -webkit-box-shadow 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
     transition: -webkit-transform 0.2s cubic-bezier(0.64, 0.09, 0.08, 1), -webkit-box-shadow 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -166,4 +166,10 @@
     -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
             box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);  
 
+}
+
+.RegisterSubmit:disabled {
+	background: #9e9e9e !important;
+    cursor: default;
+    
 }
