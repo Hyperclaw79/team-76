@@ -1,10 +1,45 @@
-from src import app
-from flask import jsonify, abort
+from src import app, db
+from flask import jsonify, abort, request
+from src.models import User
+import requests
+import os
+import json
 
+CLUSTER_NAME = os.environ.get('CLUSTER_NAME')
 
 @app.route("/")
 def home():
     return "Hasura Hello World"
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    '''Register a new user'''
+    headers = {'Content-Type': 'application/json'}
+    request_data = request.get_json()
+    # print(request_data)
+    body = {
+        'provider': 'email',
+        'data': {
+            'email': request_data['email'],
+            'password': request_data['password']
+        }
+    }
+    # print(body)
+    auth_url = 'https://auth.{}.hasura-app.io/v1/signup'.format(CLUSTER_NAME)
+    auth_response = requests.post(auth_url, data=json.dumps(body), headers=headers).json()
+    # print(auth_response)
+    if 'hasura_id' not in auth_response:
+        return 'Something went wrong', 400
+    new_user = User(hasura_id=auth_response.get('hasura_id'),
+                    username=request_data['username'],
+                    avatar_file_link=request_data['avatar'])
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+    except:
+        return 'Something went wrong', 400
+    return 'Successfully registered', 201
 
 
 @app.route('/events/<phase>')
