@@ -27,7 +27,8 @@ export default class Droppy extends React.Component {
     }
 
     handleFileAdded(file) {
-        let temp = URL.createObjectURL(file)
+        //let temp = URL.createObjectURL(file)
+        let temp = file;
         this.setState(
             {
                 display:"none",
