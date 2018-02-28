@@ -79,7 +79,7 @@ email:
   forgotPassTemplate: |
     Heya buddy. Sorry to hear that you lost your password.
     No worries, you can easily generate a new one by simple clicking on the given link.<br/>
-    https://auth.{{ cluster.name }}.hasura-app.io/v1/providers/email/reset-password?token={{ "{{token}}" }}
+    https://auth.{{ cluster.name }}.hasura-app.io/ui/reset-password?token={{ "{{token}}" }}
   # Forgot password reset token expiry time in days
   resetTokenExpires: "7"
 

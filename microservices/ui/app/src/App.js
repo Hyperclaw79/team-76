@@ -50,7 +50,7 @@ export default class App extends Component {
           )}
         </Media>  
         <AuthForm ref="authForm" handler={this.handle_disp} />
-        <ElectonBox disp={this.state.core_disp} user_id={this.state.user_id}/>
+        {this.state.user_id!==0?<ElectonBox disp={this.state.core_disp} user_id={this.state.user_id}/>:<div />}
       </div>
     </MuiThemeProvider>
     );
