@@ -143,10 +143,12 @@ def results():
 
 @app.route('/users')
 def users():
-    dummy_data = {
-        "name": "Tony Stark",
-        "avatar": "http://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2-xlarge_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg",
-        "score": 7,
-        "latest": "Robot Hacking"
+    '''Gives profile data of logged in user'''
+    current_user = User.query.filter_by(hasura_id=request.args.get('user')).first_or_404()
+    data = {
+        "name": current_user.username,
+        "avatar": current_user.avatar_file_link,
+        "score": current_user.score,
+        "latest": None # Handle this later
     }
-    return jsonify(data=dummy_data)
+    return jsonify(data=data)
