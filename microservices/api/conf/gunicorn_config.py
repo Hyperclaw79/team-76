@@ -6,6 +6,7 @@ bind = "0.0.0.0:8080"
 # for dev, set worker = 1
 workers = 1
 accesslog = "-"
+threads = 2
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 loglevel = "info"
 capture_output = True
