@@ -1,5 +1,6 @@
 import React from 'react';
 import DropzoneComponent from 'react-dropzone-component';
+import axios from 'axios';
 
 export default class Droppy extends React.Component {
     constructor(props) {
@@ -27,23 +28,35 @@ export default class Droppy extends React.Component {
     }
 
     handleFileAdded(file) {
-        //let temp = URL.createObjectURL(file)
-        let temp = file;
-        this.setState(
+        let clusterName = process.env.REACT_APP_CLUSTER_NAME
+        axios.post(
+            `https://filestore.${clusterName}.hasura-app.io/v1/file`,
+            file,
             {
-                display:"none",
-                uri:temp,
-                obj_disp:"block"
-            },
-            this.props.callback()
-        )
+                headers: {
+                    "Content-Type": file.type
+                },
+                withCredentials: true
+            }
+        ).then((result)=>
+        {
+            let filelink = `https://filestore.${clusterName}.hasura-app.io/v1/file/` + result.data.file_id
+            this.setState(
+                {
+                    display:"none",
+                    uri:filelink,
+                    obj_disp:"block"
+                },
+                this.props.callback()
+            )
+        }).catch((error)=>{
+            console.log(error.response.data);
+        });    
     }
 
     render() {
         const config = this.componentConfig;
         const djsConfig = this.djsConfig;
-
-        // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
             addedfile: this.handleFileAdded.bind(this)
         }
