@@ -28,7 +28,7 @@ def register():
     # print(body)
     auth_url = 'https://auth.{}.hasura-app.io/v1/signup'.format(CLUSTER_NAME)
     auth_response = requests.post(auth_url, data=json.dumps(body), headers=headers).json()
-    # print(auth_response)
+    print(auth_response)
     if 'hasura_id' not in auth_response:
         return 'Something went wrong', 400
     new_user = User(hasura_id=auth_response.get('hasura_id'),
@@ -37,7 +37,8 @@ def register():
     try:
         db.session.add(new_user)
         db.session.commit()
-    except:
+    except Exception as e:
+        print(e)
         return 'Something went wrong', 400
     return 'Successfully registered', 201
 
