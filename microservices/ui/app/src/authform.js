@@ -40,6 +40,7 @@ class ResponsiveAuthForm extends React.Component {
             title:"Please Login.",
             login_disp:"block",
             reg_disp:"none",
+            toggled:true
         };
     }
 
@@ -49,21 +50,20 @@ class ResponsiveAuthForm extends React.Component {
 
     handleToggle = (e)=>{
         if (this.refs.toggler.state.switched) {
-            this.setState({reg_disp:"block",login_disp:"none",title:"Please Register."})
+            this.setState({toggled:false,reg_disp:"block",login_disp:"none",title:"Please Register."})
         }
         else {
-            this.setState({reg_disp:"none",login_disp:"block",title:"Please Login."})
+            this.setState({toggled:true,reg_disp:"none",login_disp:"block",title:"Please Login."})
         }
     }
 
-    finalToggle = (status)=>{
-        if(status) {
-            this.setState({
-                reg_disp:"none",
-                login_disp:"block",
-                title:"Please Login."
-            });
-        }
+    finalToggle = ()=>{
+        this.setState({
+            reg_disp:"none",
+            login_disp:"block",
+            title:"Please Login.",
+            toggled:true
+        });
     }
 
 
@@ -83,7 +83,7 @@ class ResponsiveAuthForm extends React.Component {
                 <Toggle
                     ref="toggler"
                     label="Have an account?(N/Y)"
-                    defaultToggled={true}
+                    toggled={this.state.toggled}
                     thumbStyle={{backgroundColor: '#ffcccc'}}
                     trackStyle={{backgroundColor: '#ff9d9d'}}
                     labelStyle={{marginRight:"-25px"}}

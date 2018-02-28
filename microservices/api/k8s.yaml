@@ -34,6 +34,11 @@ items:
               secretKeyRef:
                 name: hasura-secrets
                 key: postgres.user
+          - name: ADMIN_BEARER_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: hasura-secrets
+                key: admin.bearer_token      
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:

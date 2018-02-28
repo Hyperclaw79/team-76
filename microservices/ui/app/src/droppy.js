@@ -8,14 +8,13 @@ export default class Droppy extends React.Component {
         this.state = {
             display: "block",
             uri: null,
-            obj_disp: "none"
+            obj_disp: "none",
+            blob:''
         }
 
-        // For a full list of possible configurations,
-        // please consult http://www.dropzonejs.com/#configuration
         this.djsConfig = {
             addRemoveLinks: true,
-            acceptedFiles: "image/*,video/*,document/*",
+            acceptedFiles: "image/*,video/*,document/*,text/*",
             autoProcessQueue: false,
             dictDefaultMessage: "Upload your submission here."   
         };
@@ -27,31 +26,40 @@ export default class Droppy extends React.Component {
         };
     }
 
-    handleFileAdded(file) {
+    filestore = (file) => {
         let clusterName = process.env.REACT_APP_CLUSTER_NAME
-        axios.post(
-            `https://filestore.${clusterName}.hasura-app.io/v1/file`,
-            file,
-            {
-                headers: {
-                    "Content-Type": file.type
-                },
-                withCredentials: true
-            }
-        ).then((result)=>
-        {
-            let filelink = `https://filestore.${clusterName}.hasura-app.io/v1/file/` + result.data.file_id
-            this.setState(
+        if(!this.props.skipFS) {
+            axios.post(
+                `https://filestore.${clusterName}.hasura-app.io/v1/file`,
+                file,
                 {
-                    display:"none",
-                    uri:filelink,
-                    obj_disp:"block"
-                },
-                this.props.callback()
-            )
-        }).catch((error)=>{
-            console.log(error.response.data);
-        });    
+                    headers: {
+                        "Content-Type": file.type
+                    },
+                    withCredentials: true
+                }
+            ).then((result)=>
+            {
+                let filelink = `https://filestore.${clusterName}.hasura-app.io/v1/file/` + result.data.file_id
+                this.setState({uri:filelink}, this.props.callback())
+            }).catch((error)=>{
+                console.log(error);
+            })
+        }
+        else{
+            this.props.callback(file)
+        }
+    }
+
+    handleFileAdded(file) {
+        this.setState(
+            {
+                display:"none",
+                obj_disp:"block",
+                blob:URL.createObjectURL(file)
+            },
+            this.filestore(file)
+        );    
     }
 
     render() {
@@ -78,7 +86,7 @@ export default class Droppy extends React.Component {
                 </div>
                 <object 
                     ref="object_placeholder" 
-                    data={this.state.uri} 
+                    data={this.state.blob} 
                     style={{display:this.state.obj_disp,width:this.props.droppy_width,marginLeft:"20px",minHeight:this.props.droppy_height}} 
                     align="center" 
                     form="Formy"

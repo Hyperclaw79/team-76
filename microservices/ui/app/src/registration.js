@@ -20,16 +20,10 @@ export default class Registration extends React.Component {
       email: '',
       username: '',
       password: '',
-      uri: '',
+      avatar: '',
     };
   }
   
-  componentDidUpdate(){
-    if(this.refs.droppy && this.refs.droppy.state.ui){
-      console.log(this.refs.droppy.state.ui)
-    }
-  }
-
   handleNext = () => {
     const {stepIndex} = this.state;
     if (stepIndex < 3) {
@@ -50,7 +44,7 @@ export default class Registration extends React.Component {
   }
 
   handleSubmit = (event)=>{
-    let avatar = this.refs.droppy.state.uri;
+    let avatar = this.state.avatar;
     let username = this.state.username;
     let email = this.state.email;
     let password = this.state.password;
@@ -75,8 +69,8 @@ export default class Registration extends React.Component {
                 withCredentials: true
             }
         ).then((result)=>{
-            if(result.status === 200){
-                this.props.callback(true);
+            if(result.status === 201 ){
+                this.props.callback();
             }
         }).catch((error)=>{
             console.log(error.response.data)
@@ -84,9 +78,30 @@ export default class Registration extends React.Component {
    }
   }
 
-  handleUpload = (event)=>{
-    console.log("Avatar Uploaded Successfully.")
-    this.setState({submitDisabled:false})
+  filestore = (file)=>{
+    let clusterName = process.env.REACT_APP_CLUSTER_NAME
+    let avatar = new FormData();
+    avatar.append("avatar", file);
+    axios.post(
+      `https://api.${clusterName}.hasura-app.io/fileUpload`,
+      avatar,
+      {
+          headers: {
+              "Content-Type": "multipart/form-data"
+          },
+          withCredentials: true
+      }
+    ).then((result)=>
+    {
+        let filelink = result.data.data.file_link
+        this.setState({avatar:filelink}, ()=>console.log("Avatar Uploaded Successfully."))
+    }).catch((error)=>{
+        console.log(error);
+    })
+  }
+
+  handleUpload = (file)=>{
+    this.setState({submitDisabled:false},this.filestore(file))
   }
 
   getStepContent(stepIndex) {
@@ -146,7 +161,7 @@ export default class Registration extends React.Component {
                       <br />
                       <br />
                     </span>
-                    <Droppy ref="droppy" callback={this.handleUpload} />
+                    <Droppy ref="droppy" callback={this.handleUpload} skipFS />
                   </div>
                 );
       default:
