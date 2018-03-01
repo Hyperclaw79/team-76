@@ -1,6 +1,6 @@
 from src import app, db
 from flask import jsonify, abort, request
-from src.models import User
+from src.models import User, Event
 import requests
 import os
 import json
@@ -48,55 +48,27 @@ def get_events(phase):
     ''' Returns a JSON with all events data currently in a perticular phase i.e (running/open)'''
     if phase not in ['open', 'running']:
         abort(404)
-    dummy_data = [
+    events = Event.query.filter_by(phase=phase).all()
+    events_data = [
         {
-            "title": "Selfie Contest",
-            "subtitle": "Who's the best looking?",
-            "tags": "#faces #selfies",
-            "deadline": '5days',
-            "phase": 'running',
-            "nominationData": [
-            {
-                "username": "ymmIADMSK",
-                "filename": "QLhosFCXRngD",
-                "description": "LuqGEzcASVDVcFIAGPWM",
-                "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg"
-            },
-            {
-                "username": "gYpfSMWpXFf",
-                "filename": "KmgnPmWM",
-                "description": "ycxbzbIFbRGsymaB",
-                "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg"
-            },
-            {
-                "username": "DQuClE",
-                "filename": "SHBIgOwkvMfV",
-                "description": "hBZuPcmsJUDOrXzTPowLY",
-                "submission": "https://www.sideshowtoy.com/assets/products/400310-iron-man-mark-iii/lg/marvel-iron-man-mark-3-life-size-figure-400310-08.jpg"
-            },
-            {
-                "username": "DZTFNUgiCb",
-                "filename": "pAHlFdbb",
-                "description": "MmGdoODojEVkypGLxmbwBo",
-                "submission": "https://images-na.ssl-images-amazon.com/images/I/91qvAndeVYL._RI_.jpg"
-            },
-            {
-                "username": "FHCegEPGd",
-                "filename": "AeBNKdu",
-                "description": "FcuntDPGFeKOtDWUVW",
-                "submission": "https://vignette.wikia.nocookie.net/marveldatabase/images/0/06/Iron_Man_Armor_Model_37.jpg"
-            }
-        ]
-        },
-        {
-            "title": "Audiophilia",
-            "subtitle": "Anyone's gonna rule the music league here?",
-            "tags": "#recordings #songs",
-            "deadline": '4days',
-            "phase": 'open'
-        }
+            'title': event.title,
+            'subtitle': event.subtitle,
+            'tags': event.tags,
+            'phase': event.phase,
+            'nominationData': [
+                {
+                    'username': User.query.filter_by(hasura_id=nomination.hasura_id).first(),
+                    'filename': nomination.filename,
+                    'description': nomination.desc,
+                    'submission': nomination.file_link,
+                    'votes': nomination.votes
+                }
+                for nomination in event.nominations
+            ]
+        } 
+        for event in events
     ]
-    return jsonify(data=[event for event in dummy_data if event['phase']==phase])
+    return jsonify(data=events_data)
 
 
 @app.route('/vote', methods=['POST'])
