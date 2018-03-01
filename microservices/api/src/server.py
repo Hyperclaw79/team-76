@@ -153,6 +153,7 @@ def users():
     }
     return jsonify(data=data)
 
+
 @app.route('/fileUpload', methods=['POST'])
 def upload():
     '''Uploads a file to Hasura filestore and returns the link to the file.'''

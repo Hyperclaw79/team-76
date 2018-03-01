@@ -22,7 +22,6 @@ class Event(db.Model):
     tags = db.Column(db.String)
     phase = db.Column(db.String, db.CheckConstraint('phase IN (\'running\', \'open\')'))
     deadline = db.Column(db.DateTime, nullable=False)
-    votes = db.Column(db.Integer, nullable=False, server_default='0')
     nominations = db.relationship('Nomination', backref='event', lazy=True)
 
     def __repr__(self):
@@ -38,6 +37,7 @@ class Nomination(db.Model):
     filename = db.Column(db.String, nullable=False)
     desc = db.Column(db.String, server_default='No description')
     file_link = db.Column(db.String, nullable=False)
+    votes = db.Column(db.Integer, nullable=False, server_default='0')
 
 
 db.create_all()
