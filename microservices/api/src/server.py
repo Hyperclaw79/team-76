@@ -157,14 +157,14 @@ def users():
 @app.route('/fileUpload', methods=['POST'])
 def upload():
     '''Uploads a file to Hasura filestore and returns the link to the file.'''
-    url='https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
+    filestore_url = 'https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
     headers = {
         "Content-Type": request.files['avatar'].mimetype,
         "Authorization": "Bearer {}".format(os.environ.get('ADMIN_BEARER_TOKEN'))
     }
-    uploader = requests.post(url=url,data=request.files['avatar'],headers=headers)
+    uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers)
     print(uploader.json())
     data = {
-        "file_link": url+'/'+uploader.json()['file_id']
+        "file_link": filestore_url+'/'+uploader.json()['file_id']
     }
     return jsonify(data=data)
