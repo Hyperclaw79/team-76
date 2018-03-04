@@ -210,4 +210,4 @@ def upload():
     data = {
         "file_link": filestore_url+'/'+uploader.json()['file_id']
     }
-    return jsonify(data=data)
+    return jsonify(data=data), 201
