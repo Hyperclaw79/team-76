@@ -138,7 +138,7 @@ def results():
             raise Exception
         resultsData = [
             {
-                'id': event.id
+                'id': event.id,
                 'event': event.title,
                 "details":
                 {
