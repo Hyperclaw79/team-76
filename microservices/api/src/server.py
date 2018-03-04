@@ -65,7 +65,7 @@ def get_events(phase):
                 }
                 for nomination in event.nominations
             ]
-        } 
+        }
         for event in events
     ]
     return jsonify(data=events_data)
@@ -74,22 +74,41 @@ def get_events(phase):
 @app.route('/vote', methods=['POST'])
 def vote():
     '''Gives vote to specified event'''
-    return "Voted!"
+    try:
+        voter = User.query.filter_by(hasura_id=request.form[])
 
 
 @app.route('/nominate', methods=['POST'])
 def nominate():
     '''Nominate a new entry in a event'''
-    return "Nominated!"
+    try:
+        request_data = request.get_json()
+        nomination = Nomination(event_id=request_data['event_id'],
+                                hausra_id=request_data['user_id'],
+                                filename=request_data['filename'],
+                                desc=request_data['description'],
+                                file_link=request_data['submission'])
+        db.session.add(nomination)
+        db.session.commit()
+        return json.dumps({
+            'status': 'success',
+            'nomination_id': nomination.id
+            }), 201
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'failed',
+            'description': 'Something went wrong. Could not create the nomination. Please check the information correctly.'
+            }), 400
 
 
 @app.route('/results')
 def results():
     '''Send results of events which are over'''
     resultsData = [
-        { 
-            "event": "Ironman pics", 
-            "details": 
+        {
+            "event": "Ironman pics",
+            "details":
             {
                 "winner":
                 {
@@ -108,7 +127,7 @@ def results():
                     "votes": 100
                 }
             }
-        }  
+        }
     ]
     return jsonify(data=resultsData)
 
