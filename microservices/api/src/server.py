@@ -81,11 +81,21 @@ def get_events(phase):
 @app.route('/vote', methods=['POST'])
 def vote():
     '''Gives vote to specified event'''
-    # try:
-    #     request_data = request.get_json()
-    #     voter = User.query.filter_by(hasura_id=request_data[])
-    return 'Voted!'
-
+    try:
+        request_data = request.get_json()
+        voter = User.query.filter_by(hasura_id=request_data['user_id']).first()
+        nomination = Nomination.query.filter_by(id=request_data['id']).first()
+        if voter is None or nomination is None:
+            raise Exception
+        nomination.votes = nomination.votes + 1
+        return json.dumps({'status'='success'}), 202
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find nomination or voter. Please check the information correctly.'
+            }), 404
+            
 
 @app.route('/nominate', methods=['POST'])
 def nominate():
