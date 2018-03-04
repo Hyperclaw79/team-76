@@ -4,6 +4,8 @@ from src.models import User, Event
 import requests
 import os
 import json
+from datetime import datetime
+from operator import itemgetter
 
 CLUSTER_NAME = os.environ.get('CLUSTER_NAME')
 
@@ -95,7 +97,7 @@ def vote():
             'status': 'error',
             'description': 'Something went wrong. Could not find nomination or voter. Please check the information correctly.'
             }), 404
-            
+
 
 @app.route('/nominate', methods=['POST'])
 def nominate():
@@ -124,32 +126,49 @@ def nominate():
 @app.route('/results')
 def results():
     '''Send results of events which are over'''
-    resultsData = [
-        {
-            "event": "Ironman pics",
-            "details":
+    try:
+        current_user = User.query.filter_by(hasura_id=request.args.get('user')).first()
+        events = Event.query.filter(phase=='running',
+                                    deadline<datetime.now(),
+                                    hasura_id in itemgetter('hasura_id')(nominations)).order_by(
+                                        deadline.desc()) # Filter out user participated events that are over and sort in reverse chronological order
+        user_nom = [nomination for nomination in event.nominations if nomination.hasura_id==hasura_id for event in events]
+        winner_nom = [max(event.nominations, key=itemgetter('votes')) for event in events] # Create a list of winners for all events that are over
+        if current_user is None or events is None or winners is None:
+            raise Exception
+        resultsData = [
             {
-                "winner":
+                'id': event.id
+                'event': event.title,
+                "details":
                 {
-                    "username": "Hyper",
-                    "filename": "Dope Ironman",
-                    "description": "This is the dopest ironman pic. So it should win.",
-                    "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
-                    "votes": 123
-                },
-                "user":
-                {
-                    "username": "gYpfSMWpXFf",
-                    "filename": "KmgnPmWM",
-                    "description": "ycxbzbIFbRGsymaB",
-                    "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
-                    "votes": 100
+                    "winner":
+                    {
+                        'username': User.query.filter_by(hasura_id=winners[index].hausra_id).first().username,
+                        'filename': winners[index].filename,
+                        'description': winners[index].desc,
+                        'submission': winners[index].file_link,
+                        'votes': winners[index].votes
+                    },
+                    "user":
+                    {
+                        "username": current_user.username,
+                        "filename": user_nom[index].filename,
+                        "description": user_nom[index].desc,
+                        "submission": user_nom[index].file_link,
+                        "votes": user_nom[index].votes
+                    }
                 }
             }
-        }
-    ]
-    return jsonify(data=resultsData)
-
+            for index, event in enumerate(events)
+        ]
+        return jsonify(data=resultsData)
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find results. Please check the information correctly.'
+            }), 404
 
 @app.route('/users')
 def users():
