@@ -90,7 +90,7 @@ def vote():
         if voter is None or nomination is None:
             raise Exception
         nomination.votes = nomination.votes + 1
-        return json.dumps({'status'='success'}), 202
+        return json.dumps({'status':'success'}), 202
     except Exception as e:
         print(e)
         return json.dumps({
