@@ -1,9 +1,11 @@
 from src import app, db
 from flask import jsonify, abort, request
-from src.models import User
+from src.models import User, Event
 import requests
 import os
 import json
+from datetime import datetime
+from operator import itemgetter
 
 CLUSTER_NAME = os.environ.get('CLUSTER_NAME')
 
@@ -46,100 +48,127 @@ def register():
 @app.route('/events/<phase>')
 def get_events(phase):
     ''' Returns a JSON with all events data currently in a perticular phase i.e (running/open)'''
-    if phase not in ['open', 'running']:
-        abort(404)
-    dummy_data = [
-        {
-            "title": "Selfie Contest",
-            "subtitle": "Who's the best looking?",
-            "tags": "#faces #selfies",
-            "deadline": '5days',
-            "phase": 'running',
-            "nominationData": [
+    try:
+        events = Event.query.filter_by(phase=phase).all()
+        events_data = [
             {
-                "username": "ymmIADMSK",
-                "filename": "QLhosFCXRngD",
-                "description": "LuqGEzcASVDVcFIAGPWM",
-                "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg"
-            },
-            {
-                "username": "gYpfSMWpXFf",
-                "filename": "KmgnPmWM",
-                "description": "ycxbzbIFbRGsymaB",
-                "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg"
-            },
-            {
-                "username": "DQuClE",
-                "filename": "SHBIgOwkvMfV",
-                "description": "hBZuPcmsJUDOrXzTPowLY",
-                "submission": "https://www.sideshowtoy.com/assets/products/400310-iron-man-mark-iii/lg/marvel-iron-man-mark-3-life-size-figure-400310-08.jpg"
-            },
-            {
-                "username": "DZTFNUgiCb",
-                "filename": "pAHlFdbb",
-                "description": "MmGdoODojEVkypGLxmbwBo",
-                "submission": "https://images-na.ssl-images-amazon.com/images/I/91qvAndeVYL._RI_.jpg"
-            },
-            {
-                "username": "FHCegEPGd",
-                "filename": "AeBNKdu",
-                "description": "FcuntDPGFeKOtDWUVW",
-                "submission": "https://vignette.wikia.nocookie.net/marveldatabase/images/0/06/Iron_Man_Armor_Model_37.jpg"
+                'id': event.id,
+                'title': event.title,
+                'subtitle': event.subtitle,
+                'tags': event.tags,
+                'phase': event.phase,
+                'nominationData': [
+                    {
+                        'id': nomination.id,
+                        'username': User.query.filter_by(hasura_id=nomination.hasura_id).first().username,
+                        'filename': nomination.filename,
+                        'description': nomination.desc,
+                        'submission': nomination.file_link,
+                        'votes': nomination.votes
+                    }
+                    for nomination in event.nominations
+                ]
             }
+            for event in events
         ]
-        },
-        {
-            "title": "Audiophilia",
-            "subtitle": "Anyone's gonna rule the music league here?",
-            "tags": "#recordings #songs",
-            "deadline": '4days',
-            "phase": 'open'
-        }
-    ]
-    return jsonify(data=[event for event in dummy_data if event['phase']==phase])
+        return jsonify(data=events_data), 200
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find events. Please check the information correctly.'
+            }), 404
 
 
 @app.route('/vote', methods=['POST'])
 def vote():
     '''Gives vote to specified event'''
-    return "Voted!"
+    try:
+        request_data = request.get_json()
+        voter = User.query.filter_by(hasura_id=request_data['user_id']).first()
+        nomination = Nomination.query.filter_by(id=request_data['id']).first()
+        if voter is None or nomination is None:
+            raise Exception
+        nomination.votes = nomination.votes + 1
+        return json.dumps({'status'='success'}), 202
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find nomination or voter. Please check the information correctly.'
+            }), 404
 
 
 @app.route('/nominate', methods=['POST'])
 def nominate():
     '''Nominate a new entry in a event'''
-    return "Nominated!"
+    try:
+        request_data = request.get_json()
+        nomination = Nomination(event_id=request_data['event_id'],
+                                hausra_id=request_data['user_id'],
+                                filename=request_data['filename'],
+                                desc=request_data['description'],
+                                file_link=request_data['submission'])
+        db.session.add(nomination)
+        db.session.commit()
+        return json.dumps({
+            'status': 'success',
+            'nomination_id': nomination.id
+            }), 201
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not create the nomination. Please check the information correctly.'
+            }), 400
 
 
 @app.route('/results')
 def results():
     '''Send results of events which are over'''
-    resultsData = [
-        { 
-            "event": "Ironman pics", 
-            "details": 
+    try:
+        current_user = User.query.filter_by(hasura_id=request.args.get('user')).first()
+        events = Event.query.filter(phase=='running',
+                                    deadline<datetime.now(),
+                                    hasura_id in itemgetter('hasura_id')(nominations)).order_by(
+                                        deadline.desc()) # Filter out user participated events that are over and sort in reverse chronological order
+        user_nom = [nomination for nomination in event.nominations if nomination.hasura_id==hasura_id for event in events]
+        winner_nom = [max(event.nominations, key=itemgetter('votes')) for event in events] # Create a list of winners for all events that are over
+        if current_user is None or events is None or winners is None:
+            raise Exception
+        resultsData = [
             {
-                "winner":
+                'id': event.id
+                'event': event.title,
+                "details":
                 {
-                    "username": "Hyper",
-                    "filename": "Dope Ironman",
-                    "description": "This is the dopest ironman pic. So it should win.",
-                    "submission": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Iron_Man_bleeding_edge.jpg/220px-Iron_Man_bleeding_edge.jpg",
-                    "votes": 123
-                },
-                "user":
-                {
-                    "username": "gYpfSMWpXFf",
-                    "filename": "KmgnPmWM",
-                    "description": "ycxbzbIFbRGsymaB",
-                    "submission": "https://vignette.wikia.nocookie.net/ironman/images/2/21/47.jpg",
-                    "votes": 100
+                    "winner":
+                    {
+                        'username': User.query.filter_by(hasura_id=winners[index].hausra_id).first().username,
+                        'filename': winners[index].filename,
+                        'description': winners[index].desc,
+                        'submission': winners[index].file_link,
+                        'votes': winners[index].votes
+                    },
+                    "user":
+                    {
+                        "username": current_user.username,
+                        "filename": user_nom[index].filename,
+                        "description": user_nom[index].desc,
+                        "submission": user_nom[index].file_link,
+                        "votes": user_nom[index].votes
+                    }
                 }
             }
-        }  
-    ]
-    return jsonify(data=resultsData)
-
+            for index, event in enumerate(events)
+        ]
+        return jsonify(data=resultsData)
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find results. Please check the information correctly.'
+            }), 404
 
 @app.route('/users')
 def users():
@@ -153,17 +182,18 @@ def users():
     }
     return jsonify(data=data)
 
+
 @app.route('/fileUpload', methods=['POST'])
 def upload():
     '''Uploads a file to Hasura filestore and returns the link to the file.'''
-    url='https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
+    filestore_url = 'https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
     headers = {
         "Content-Type": request.files['avatar'].mimetype,
         "Authorization": "Bearer {}".format(os.environ.get('ADMIN_BEARER_TOKEN'))
     }
-    uploader = requests.post(url=url,data=request.files['avatar'],headers=headers)
+    uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers)
     print(uploader.json())
     data = {
-        "file_link": url+'/'+uploader.json()['file_id']
+        "file_link": filestore_url+'/'+uploader.json()['file_id']
     }
     return jsonify(data=data)
