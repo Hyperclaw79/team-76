@@ -46,30 +46,37 @@ def register():
 @app.route('/events/<phase>')
 def get_events(phase):
     ''' Returns a JSON with all events data currently in a perticular phase i.e (running/open)'''
-    if phase not in ['open', 'running']:
-        abort(404)
-    events = Event.query.filter_by(phase=phase).all()
-    events_data = [
-        {
-            'title': event.title,
-            'subtitle': event.subtitle,
-            'tags': event.tags,
-            'phase': event.phase,
-            'nominationData': [
-                {
-                    'username': User.query.filter_by(hasura_id=nomination.hasura_id).first(),
-                    'filename': nomination.filename,
-                    'description': nomination.desc,
-                    'submission': nomination.file_link,
-                    'votes': nomination.votes
-                }
-                for nomination in event.nominations
-            ]
-        }
-        for event in events
-    ]
-    return jsonify(data=events_data)
-
+    try:
+        events = Event.query.filter_by(phase=phase).all()
+        events_data = [
+            {
+                'id': event.id,
+                'title': event.title,
+                'subtitle': event.subtitle,
+                'tags': event.tags,
+                'phase': event.phase,
+                'nominationData': [
+                    {
+                        'id': nomination.id,
+                        'username': User.query.filter_by(hasura_id=nomination.hasura_id).first().username,
+                        'filename': nomination.filename,
+                        'description': nomination.desc,
+                        'submission': nomination.file_link,
+                        'votes': nomination.votes
+                    }
+                    for nomination in event.nominations
+                ]
+            }
+            for event in events
+        ]
+    return jsonify(data=events_data), 200
+    except Exception as e:
+        print(e)
+        return json.dumps({
+            'status': 'error',
+            'description': 'Something went wrong. Could not find events. Please check the information correctly.'
+            }), 404
+            
 
 @app.route('/vote', methods=['POST'])
 def vote():
@@ -97,7 +104,7 @@ def nominate():
     except Exception as e:
         print(e)
         return json.dumps({
-            'status': 'failed',
+            'status': 'error',
             'description': 'Something went wrong. Could not create the nomination. Please check the information correctly.'
             }), 400
 
