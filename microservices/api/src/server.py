@@ -8,6 +8,20 @@ from datetime import datetime
 from operator import itemgetter
 
 CLUSTER_NAME = os.environ.get('CLUSTER_NAME')
+class AdminLogin:
+    def __init__(self):
+        data = {
+          "provider": "username",
+          "data": {
+            "username": "admin",
+            "password": os.environ['ADMIN_PASSWORD']
+          }
+        }
+        resp = requests.post('https://auth.{}.hasura-app.io/v1/login'.format(CLUSTER_NAME),json=data)
+        self.bearer_token = resp.json()['auth_token']
+
+admin = AdminLogin()        
+
 
 @app.route("/")
 def home():
@@ -189,7 +203,7 @@ def upload():
     filestore_url = 'https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
     headers = {
         "Content-Type": request.files['avatar'].mimetype,
-        "Authorization": "Bearer {}".format(os.environ.get('ADMIN_BEARER_TOKEN'))
+        "Authorization": "Bearer {}".format(admin.bearer_token)
     }
     uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers)
     print(uploader.json())
