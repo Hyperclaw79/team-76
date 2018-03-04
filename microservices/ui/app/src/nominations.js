@@ -52,13 +52,15 @@ export default class Nominations extends Component{
             <ResponsiveNominations 
               data = {this.props.data}
               user_id = {this.props.data} 
+              event_id = {this.props.event_id}
               style={stylesResponsive.container}
               cardStyle={stylesResponsive.Card}
             />
             ) : (
             <ResponsiveNominations 
               data = {this.props.data}
-              user_id = {this.props.data} 
+              user_id = {this.props.data}
+              event_id = {this.props.event_id} 
               style={stylesOriginal.container}
               cardStyle={stylesOriginal.Card}
             />
@@ -85,7 +87,8 @@ class ResponsiveNominations extends Component {
       let body = {
         username: voteFor,
         event: this.state.data.eventName,
-        user_id: this.props.user_id
+        user_id: this.props.user_id,
+        event_id: this.state.data.event_id
       }
       axios.post(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/vote`,body).then((result)=>{
         this.setState({voteLabel:"Done",voteColor:"green",voteBool:true})

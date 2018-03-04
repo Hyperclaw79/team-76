@@ -30,7 +30,11 @@ class Cards extends Component {
         />
         <CardMedia expandable={true}>
           <Nominations 
-            data={{"nominationData":this.props.nominationData,"eventName":this.props.title}}
+            data={{
+              "nominationData":this.props.nominationData,
+              "eventName":this.props.title,
+              "event_id":this.props.event_id
+            }}
             user_id={this.props.user_id}
           />
         </CardMedia>
@@ -57,7 +61,8 @@ export default class VoteBox extends Component {
         "phase": "running",
         "subtitle": "",
         "tags": "",
-        "title": ""
+        "title": "",
+        "event_id":""
       }]
     }  
   }
@@ -77,7 +82,8 @@ export default class VoteBox extends Component {
             this.state.eventList.map((item,index)=>
               <div key={"EventWrapper-"+index}>
                 <Cards 
-                  title={item.title} 
+                  title={item.title}
+                  event_id={item.event_id} 
                   subtitle={item.subtitle} 
                   tags={item.tags} 
                   deadline={item.deadline} 

@@ -19,7 +19,8 @@ class DropDown extends Component {
               "phase": "open",
               "subtitle": "",
               "tags": "",
-              "title": ""
+              "title": "",
+              "event_id": ""
             }
           ],
           choice: 1
@@ -100,10 +101,12 @@ class ResponsiveNominationForm extends React.Component {
         event.preventDefault();
         let submission = this.refs.droppy.state.uri;
         let Event = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1].title;
+        let EventID = this.refs.choicy.state.eventList[this.refs.choicy.state.choice-1].event_id;
         let Filename = this.state.Filename;
         let Description = this.state.Description;
         let body = {
             "event":Event,
+            "event_id":EventID,
             "filename":Filename,
             "description":Description,
             "submission":submission,
