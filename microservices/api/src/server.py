@@ -69,20 +69,22 @@ def get_events(phase):
             }
             for event in events
         ]
-    return jsonify(data=events_data), 200
+        return jsonify(data=events_data), 200
     except Exception as e:
         print(e)
         return json.dumps({
             'status': 'error',
             'description': 'Something went wrong. Could not find events. Please check the information correctly.'
             }), 404
-            
+
 
 @app.route('/vote', methods=['POST'])
 def vote():
     '''Gives vote to specified event'''
-    try:
-        voter = User.query.filter_by(hasura_id=request.form[])
+    # try:
+    #     request_data = request.get_json()
+    #     voter = User.query.filter_by(hasura_id=request_data[])
+    return 'Voted!'
 
 
 @app.route('/nominate', methods=['POST'])
