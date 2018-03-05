@@ -52,7 +52,7 @@ session:
 # Configuration related to the email provider
 email:
   # email address of the sender for verification emails
-  verifyEmailFrom: getstarteduser@hasura.io
+  verifyEmailFrom: electon.devs76@gmail.com
   # Name of the sender for verification emails
   verifEmailFromName: The Guys in Charge
   # Subject for verification emails
@@ -68,7 +68,7 @@ email:
   verifyTokenExpires: "7"
 
   # email address of the sender for forgot password emails
-  forgotPassEmailFrom: getstarteduser@hasura.io
+  forgotPassEmailFrom: electon.devs76@gmail.com
   # Name of the sender for forgot password emails
   forgotPassEmailFromName: The Guys in Charge
   # Subject for forgot password emails
@@ -146,5 +146,5 @@ superUser:
       name: hasura-secrets
   username: admin
   # optional  fields
-  # email: getstarteduser@hasura.io
+  # email: electon.devs76@gmail.com
   # mobile: 987654321
