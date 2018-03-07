@@ -29,6 +29,10 @@ class AdminLogin:
         return self.bearer_token    
 
 
+    def delete_user(self, hasura_id):
+        data = {'hasura_id': hasura_id}
+        requests.post('https://auth.{}.hasura-app.io/v1/admin/delete-user'.format(CLUSTER_NAME), json=data)
+
 admin = AdminLogin()        
 
 
@@ -55,7 +59,7 @@ def register():
     auth_response = requests.post(auth_url, data=json.dumps(body), headers=headers).json()
     print(auth_response)
     if 'hasura_id' not in auth_response:
-        return 'Something went wrong', 400
+        return jsonify(status='failed', description=auth_response['message']), 400
     new_user = User(hasura_id=auth_response.get('hasura_id'),
                     username=request_data['username'],
                     avatar_file_link=request_data['avatar'])
@@ -64,8 +68,9 @@ def register():
         db.session.commit()
     except Exception as e:
         print(e)
-        return 'Something went wrong', 400
-    return 'Successfully registered', 201
+        admin.delete_user(auth_response['hasura_id'])
+        return jsonify(status='failed', description='Username already exists. Please enter a different username.'), 400
+    return jsonify(status='success', description='User successfully registered'), 201
 
 
 @app.route('/events/<phase>')
