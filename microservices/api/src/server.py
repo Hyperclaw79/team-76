@@ -31,14 +31,19 @@ class AdminLogin:
 
     def delete_user(self, hasura_id):
         data = {'hasura_id': hasura_id}
+        headers = {
+            'Content-Type': 'application/json',
+
+        }
         requests.post('https://auth.{}.hasura-app.io/v1/admin/delete-user'.format(CLUSTER_NAME), json=data)
 
 admin = AdminLogin()        
 
 
-@app.route("/")
+@app.route('/')
+@app.route('/index')
 def home():
-    return "Hasura Hello World"
+    return 'Welcome to Electon API. Head over to https://ui.{}.hasura-app.io to get started.'.format(CLUSTER_NAME) 
 
 
 @app.route('/register', methods=['POST'])
@@ -73,7 +78,7 @@ def register():
     return jsonify(status='success', description='User successfully registered'), 201
 
 
-@app.route('/events/<phase>')
+@app.route('/events/<phase>', methods=['GET'])
 def get_events(phase):
     ''' Returns a JSON with all events data currently in a perticular phase i.e (running/open)'''
     try:
@@ -99,13 +104,13 @@ def get_events(phase):
             }
             for event in events
         ]
-        return jsonify(data=events_data), 200
+        return jsonify(status='found', data=events_data), 200
     except Exception as e:
         print(e)
-        return json.dumps({
-            'status': 'error',
-            'description': 'Something went wrong. Could not find events. Please check the information correctly.'
-            }), 404
+        return jsonify(
+            status='not-found',
+            description='Something went wrong. Could not find events. Please check the information correctly.'
+            ), 404
 
 
 @app.route('/vote', methods=['POST'])
@@ -118,11 +123,11 @@ def vote():
         if voter is None or nomination is None:
             raise Exception
         nomination.votes = nomination.votes + 1
-        return json.dumps({'status':'success'}), 202
+        return jsonify(status='success', description='Successfully voted'), 202
     except Exception as e:
         print(e)
         return json.dumps({
-            'status': 'error',
+            'status': 'failed',
             'description': 'Something went wrong. Could not find nomination or voter. Please check the information correctly.'
             }), 404
 
@@ -146,25 +151,27 @@ def nominate():
     except Exception as e:
         print(e)
         return json.dumps({
-            'status': 'error',
+            'status': 'failed',
             'description': 'Something went wrong. Could not create the nomination. Please check the information correctly.'
             }), 400
 
 
-@app.route('/results')
+@app.route('/results', methods=['GET'])
 def results():
     '''Send results of events which are over'''
     try:
         current_user = User.query.filter_by(hasura_id=request.args.get('user')).first()
-        events = Event.query.filter(phase=='running',
-                                    deadline<datetime.now(),
-                                    hasura_id in itemgetter('hasura_id')(nominations)).order_by(
-                                        deadline.desc()) # Filter out user participated events that are over and sort in reverse chronological order
+        events = Event.query.filter(
+            phase=='running',
+            deadline<datetime.now(),
+            hasura_id in itemgetter('hasura_id')(nominations)).order_by(
+            deadline.desc()
+        ) # Filter out user participated events that are over and sort in reverse chronological order
         user_nom = [nomination for nomination in event.nominations if nomination.hasura_id==hasura_id for event in events]
         winner_nom = [max(event.nominations, key=itemgetter('votes')) for event in events] # Create a list of winners for all events that are over
-        if current_user is None or events is None or winners is None:
+        if current_user is None or events is None or winner_nom is None:
             raise Exception
-        resultsData = [
+        results_data = [
             {
                 'id': event.id,
                 'event': event.title,
@@ -190,25 +197,30 @@ def results():
             }
             for index, event in enumerate(events)
         ]
-        return jsonify(data=resultsData)
+        return jsonify(status='found', data=results_data), 200
     except Exception as e:
         print(e)
         return json.dumps({
-            'status': 'error',
+            'status': 'not-found',
             'description': 'Something went wrong. Could not find results. Please check the information correctly.'
             }), 404
 
-@app.route('/users')
+
+@app.route('/users', methods=['GET'])
 def users():
     '''Gives profile data of logged in user'''
-    current_user = User.query.filter_by(hasura_id=request.args.get('user')).first_or_404()
-    data = {
-        "name": current_user.username,
-        "avatar": current_user.avatar_file_link,
-        "score": current_user.score,
-        "latest": None # Handle this later
-    }
-    return jsonify(data=data)
+    try:
+        current_user = User.query.filter_by(hasura_id=request.args.get('user')).first()
+        data = {
+            "name": current_user.username,
+            "avatar": current_user.avatar_file_link,
+            "score": current_user.score,
+            "latest": None # Handle this later
+        }
+        return jsonify(status='found', data=data), 200
+    except Exception as e:
+        print(e)
+        return jsonify(status='not-found', description='Could not find any logged in user. Please login.'), 404
 
 
 @app.route('/fileUpload', methods=['POST'])
