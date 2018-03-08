@@ -33,7 +33,7 @@ class AdminLogin:
         data = {'hasura_id': hasura_id}
         headers = {
             'Content-Type': 'application/json',
-
+            'Authorization': 'Bearer {}'.format(self.bearer_token)
         }
         requests.post('https://auth.{}.hasura-app.io/v1/admin/delete-user'.format(CLUSTER_NAME), json=data)
 
