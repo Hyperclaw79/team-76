@@ -71,11 +71,19 @@ def register():
     try:
         db.session.add(new_user)
         db.session.commit()
+        data = {
+            "status": "success",
+            "description": "User successfully registered."
+        }
     except Exception as e:
         print(e)
         admin.delete_user(auth_response['hasura_id'])
-        return jsonify(status='failed', description='Username already exists. Please enter a different username.'), 400
-    return jsonify(status='success', description='User successfully registered'), 201
+        data = {
+            "status": "failed",
+            "description": "Username already exists. Please enter a different username."
+        }
+        return jsonify(data=data), 400
+    return jsonify(data=data), 201
 
 
 @app.route('/events/<phase>', methods=['GET'])
@@ -128,7 +136,7 @@ def vote():
         print(e)
         return json.dumps({
             'status': 'failed',
-            'description': 'Something went wrong. Could not find nomination or voter. Please check the information correctly.'
+            'description': 'Something went wrong. Could not find nomination for voter. Please check the information correctly.'
             }), 404
 
 

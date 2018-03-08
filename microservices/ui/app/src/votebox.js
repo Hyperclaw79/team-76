@@ -67,8 +67,11 @@ export default class VoteBox extends Component {
     }  
   }
   componentDidMount(){
-    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/events/running`).then((result)=>{
-      this.setState({eventList:result.data.data})
+    axios.get(`https://api.${process.env.REACT_APP_CLUSTER_NAME}.hasura-app.io/events/running`)
+      .then((result)=>{
+        this.setState({eventList:result.data.data})
+    }).catch((error)=>{
+        alert(error.response.data.description);
     })
   }
   render() {

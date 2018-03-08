@@ -72,7 +72,7 @@ export default class Registration extends React.Component {
                 withCredentials: true
             }
         ).then((result)=>{
-            if(result.body.status === 'success' ){
+            if(result.data.data.status === 'success' ){
                 this.props.callback();
             }
         }).catch((error)=>{
