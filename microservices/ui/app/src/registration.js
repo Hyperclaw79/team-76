@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Droppy from './droppy';
 import axios from 'axios';
+import Snackbar from 'material-ui/Snackbar';
 
 export default class Registration extends React.Component {
 
@@ -21,6 +22,8 @@ export default class Registration extends React.Component {
       username: '',
       password: '',
       avatar: '',
+      message:"",
+      open:false
     };
   }
   
@@ -69,11 +72,11 @@ export default class Registration extends React.Component {
                 withCredentials: true
             }
         ).then((result)=>{
-            if(result.status === 201 ){
+            if(result.body.status === 'success' ){
                 this.props.callback();
             }
         }).catch((error)=>{
-            console.log(error.response.data)
+            this.setState({open:true, message:error.response.data.description})
         })
    }
   }
@@ -96,7 +99,7 @@ export default class Registration extends React.Component {
         let filelink = result.data.data.file_link
         this.setState({avatar:filelink}, ()=>console.log("Avatar Uploaded Successfully."))
     }).catch((error)=>{
-        console.log(error);
+        this.setState({open:true, message:error.response.data.description});
     })
   }
 
@@ -169,6 +172,12 @@ export default class Registration extends React.Component {
     }
   }
 
+  handleRequestClose = () => {
+    this.setState({
+        open: false,
+    });
+};
+
   render() {
     const {stepIndex} = this.state;
     const contentStyle = {margin: '0 16px'};
@@ -221,6 +230,12 @@ export default class Registration extends React.Component {
         >
           Register
         </button>
+        <Snackbar
+            open={this.state.open}
+            message={this.state.message}
+            autoHideDuration={5000}
+            onRequestClose={this.handleRequestClose}
+        />
       </div>  
     );
   }

@@ -231,9 +231,16 @@ def upload():
         "Content-Type": request.files['avatar'].mimetype,
         "Authorization": "Bearer {}".format(admin.get_bearer())
     }
-    uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers)
-    print(uploader.json())
-    data = {
-        "file_link": filestore_url+'/'+uploader.json()['file_id']
-    }
+    uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers).json()
+    print(uploader)
+    if 'file_id' in uploader.keys():
+        data = {
+            "file_link": filestore_url+'/'+uploader['file_id']
+            "status": "success"
+        }
+    else:
+        data = {
+            "status": "failed",
+            "description": "An Error occured while uploading the file."
+        }
     return jsonify(data=data), 201
