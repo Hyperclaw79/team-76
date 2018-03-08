@@ -235,7 +235,7 @@ def upload():
     print(uploader)
     if 'file_id' in uploader.keys():
         data = {
-            "file_link": filestore_url+'/'+uploader['file_id']
+            "file_link": filestore_url+'/'+uploader['file_id'],
             "status": "success"
         }
     else:
