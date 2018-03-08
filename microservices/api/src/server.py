@@ -19,6 +19,15 @@ class AdminLogin:
         }
         resp = requests.post('https://auth.{}.hasura-app.io/v1/login'.format(CLUSTER_NAME),json=data)
         self.bearer_token = resp.json()['auth_token']
+    def get_bearer(self):
+        headers = {
+            "Authorization":"Bearer {}".format(self.bearer_token)
+        }
+        resp = requests.get('https://auth.{}.hasura-app.io/v1/user/info'.format(CLUSTER_NAME),headers=headers).json()
+        if not resp.get('hasura_id', None):
+            self.__init__()
+        return self.bearer_token    
+
 
 admin = AdminLogin()        
 
@@ -203,7 +212,7 @@ def upload():
     filestore_url = 'https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
     headers = {
         "Content-Type": request.files['avatar'].mimetype,
-        "Authorization": "Bearer {}".format(admin.bearer_token)
+        "Authorization": "Bearer {}".format(admin.get_bearer())
     }
     uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers)
     print(uploader.json())
