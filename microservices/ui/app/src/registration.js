@@ -73,7 +73,12 @@ export default class Registration extends React.Component {
             }
         ).then((result)=>{
             if(result.data.data.status === 'success' ){
-                this.props.callback();
+              this.setState({
+                  open:true, 
+                  message:"Successfully sent the verification mail. Please verify and login here."
+                },
+                this.props.callback()
+              );
             }
         }).catch((error)=>{
             this.setState({open:true, message:error.response.data.description})

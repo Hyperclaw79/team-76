@@ -15,6 +15,16 @@ const bannerStyleResults = {
   textAlign: "center"
 }
 
+const bannerStyleNoResults = {
+  backgroundColor:"#a6a6a6",
+  height:"50px",
+  paddingTop:"16px",
+  width:"98%",
+  margin:"auto",
+  marginTop:"10px",
+  textAlign: "center"
+}
+
 const resultsWrapper = {
     paddingTop:"16px",
     width:"99%",
@@ -118,7 +128,8 @@ class ResponsiveResultsBox extends Component {
   constructor(props){
       super(props);
       this.state = {
-        results:[]
+        results:[],
+        noResults: true
       }
   }
   componentDidMount(){
@@ -126,9 +137,9 @@ class ResponsiveResultsBox extends Component {
     let url = `https://api.${clusterName}.hasura-app.io/results?user_id=${this.props.user_id}`
     axios.get(url)
       .then((result)=>{
-        this.setState({results:result.data.data.map((res)=>this.generator(res))})
+        this.setState({results:result.data.data.map((res)=>this.generator(res)),noResults:false})
     }).catch((error)=>{
-        alert(error.response.data.description);
+        console.log(error.response.data.description);
     })
   }
   generator = (eventObj) => {
@@ -158,9 +169,17 @@ class ResponsiveResultsBox extends Component {
       <div style = {resultsWrapper} className="resultsWrapper" >
         <Paper zDepth={4} style = {bannerStyleResults} ><b>Results</b></Paper>
         {
-          this.state.results.map((item, index)=>
-            <Cards key={index} title={item.title} user_id={this.props.user_id} data={item.data} />
-          )
+          this.state.noResults?
+            <Paper zDepth={0} style = {bannerStyleNoResults}>
+              <b>
+                Looks like you're yet to participate in an event.
+                Or the event you participated in is yet to complete.
+              </b>  
+            </Paper>  
+          :
+            this.state.results.map((item, index)=>
+              <Cards key={index} title={item.title} user_id={this.props.user_id} data={item.data} />
+            )
         } 
       </div>
     );
