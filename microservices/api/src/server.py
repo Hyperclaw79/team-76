@@ -33,7 +33,8 @@ class AdminLogin:
         data = {'hasura_id': hasura_id}
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer {}'.format(self.bearer_token)
+            'Authorization': 'Bearer {}'.format(self.bearer_token),
+            "X-Hasura-Role":"admin"
         }
         requests.post('https://auth.{}.hasura-app.io/v1/admin/delete-user'.format(CLUSTER_NAME), json=data)
 
@@ -237,7 +238,8 @@ def upload():
     filestore_url = 'https://filestore.{}.hasura-app.io/v1/file'.format(CLUSTER_NAME)
     headers = {
         "Content-Type": request.files['avatar'].mimetype,
-        "Authorization": "Bearer {}".format(admin.get_bearer())
+        "Authorization": "Bearer {}".format(admin.get_bearer()),
+        "X-Hasura-Role":"admin"
     }
     uploader = requests.post(filestore_url, data=request.files['avatar'], headers=headers).json()
     print(uploader)
